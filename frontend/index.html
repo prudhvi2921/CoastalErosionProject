@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coastal Erosion Prediction &amp; Risk Assessment Platform</title>
-  <meta name="description" content="AI & Regression-powered Coastal Shoreline Erosion Analysis, Multi-Year Forecasting, and Risk Management Decision Support.">
+  <title>Coastal Erosion Prediction &amp; Dynamic Risk Analytics</title>
+  <meta name="description" content="AI & Linear Regression-powered Coastal Shoreline Erosion Prediction, Dynamic Dataset Column Mapping, Multi-Year Forecasting, and Risk Management Decision Support.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,24 +102,22 @@
       font-family: 'Outfit', sans-serif;
       font-size: 18px;
       font-weight: 700;
-      letter-spacing: -0.01em;
       color: #fff;
+      letter-spacing: -0.01em;
     }
 
     .brand-title span {
-      background: linear-gradient(120deg, var(--accent-cyan), #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--accent-cyan);
     }
 
     .status-badge {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(16, 42, 69, 0.8);
+      background: rgba(16, 42, 69, 0.6);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-full);
       padding: 6px 14px;
+      border-radius: var(--radius-full);
       font-size: 12px;
       font-family: 'JetBrains Mono', monospace;
       color: var(--text-secondary);
@@ -130,23 +128,22 @@
       height: 8px;
       border-radius: 50%;
       background: var(--risk-low);
-      box-shadow: 0 0 10px var(--risk-low);
-      transition: background 0.3s;
+      box-shadow: 0 0 8px var(--risk-low);
     }
 
     .status-dot.checking {
       background: var(--risk-mod);
-      box-shadow: 0 0 10px var(--risk-mod);
+      box-shadow: 0 0 8px var(--risk-mod);
     }
 
     .status-dot.offline {
       background: var(--risk-vhigh);
-      box-shadow: 0 0 10px var(--risk-vhigh);
+      box-shadow: 0 0 8px var(--risk-vhigh);
     }
 
     /* Hero Section */
     .hero {
-      padding: 40px 4vw 20px;
+      padding: 36px 4vw 20px;
       max-width: 1400px;
       margin: 0 auto;
       width: 100%;
@@ -202,7 +199,7 @@
 
     .app-layout {
       display: grid;
-      grid-template-columns: 380px 1fr;
+      grid-template-columns: 390px 1fr;
       gap: 28px;
       align-items: start;
     }
@@ -254,7 +251,7 @@
       border: 2px dashed rgba(14, 165, 233, 0.35);
       background: rgba(10, 30, 50, 0.4);
       border-radius: var(--radius-md);
-      padding: 24px 16px;
+      padding: 22px 16px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
@@ -278,7 +275,7 @@
 
     .drop-icon {
       font-size: 28px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: block;
     }
 
@@ -289,7 +286,7 @@
     }
 
     .drop-subtext {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
       margin-top: 4px;
     }
@@ -308,19 +305,91 @@
       color: var(--accent-cyan);
     }
 
+    /* Detected Columns Badge Container */
+    .detected-cols-wrap {
+      margin-top: 14px;
+      background: rgba(10, 30, 50, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+
+    .detected-cols-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .detected-cols-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .col-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .col-badge.numeric {
+      border-color: rgba(6, 182, 212, 0.35);
+      background: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+    }
+
+    .col-badge.text {
+      border-color: rgba(129, 140, 248, 0.35);
+      background: rgba(129, 140, 248, 0.08);
+      color: #a5b4fc;
+    }
+
+    /* Configuration Panel */
+    .config-card {
+      margin-top: 16px;
+      background: rgba(10, 30, 50, 0.55);
+      border: 1px solid rgba(14, 165, 233, 0.25);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .config-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     /* Form Fields */
     .field-group {
-      margin-top: 18px;
+      margin-top: 12px;
     }
 
     .field-label {
       display: block;
-      font-size: 12px;
+      font-size: 11.5px;
       font-family: 'JetBrains Mono', monospace;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-secondary);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .form-control {
@@ -328,9 +397,9 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 10px 14px;
+      padding: 9px 12px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-primary);
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
@@ -359,9 +428,9 @@
       background: rgba(14, 165, 233, 0.1);
       border: 1px solid rgba(14, 165, 233, 0.25);
       color: var(--accent-cyan);
-      padding: 9px 14px;
+      padding: 8px 12px;
       border-radius: var(--radius-sm);
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 600;
       cursor: pointer;
       margin-top: 10px;
@@ -390,7 +459,7 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 4px 18px rgba(6, 182, 212, 0.35);
-      margin-top: 22px;
+      margin-top: 20px;
       transition: all 0.2s;
     }
 
@@ -408,7 +477,7 @@
 
     /* Preprocessing Info Box */
     .hygiene-box {
-      margin-top: 20px;
+      margin-top: 18px;
       padding: 12px 14px;
       background: rgba(10, 30, 50, 0.5);
       border: 1px solid var(--border-subtle);
@@ -418,8 +487,9 @@
 
     .hygiene-title {
       font-family: 'JetBrains Mono', monospace;
-      text-transform: uppercase;
       font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--text-secondary);
       margin-bottom: 8px;
       display: flex;
@@ -430,16 +500,15 @@
     .hygiene-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4px;
       color: var(--text-muted);
+      padding: 3px 0;
     }
 
     .hygiene-row strong {
       color: var(--text-primary);
-      font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Results Dashboard Grid */
+    /* Metrics Ribbon */
     .metrics-ribbon {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -448,13 +517,22 @@
     }
 
     .metric-card {
-      background: var(--bg-surface);
+      background: rgba(10, 30, 50, 0.5);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 16px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-cyan), transparent);
     }
 
     .metric-k {
@@ -463,30 +541,31 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-secondary);
+      margin-bottom: 4px;
     }
 
     .metric-v {
       font-family: 'Outfit', sans-serif;
-      font-size: 26px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       color: #fff;
-      margin-top: 6px;
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
+      line-height: 1.1;
     }
 
     .metric-v small {
       font-size: 12px;
       font-weight: 500;
       color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
+      margin-left: 2px;
     }
 
     .metric-sub {
       font-size: 11.5px;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-top: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Risk Banner */
@@ -494,7 +573,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 20px;
+      padding: 16px 20px;
       border-radius: var(--radius-md);
       background: rgba(249, 115, 22, 0.12);
       border: 1px solid rgba(249, 115, 22, 0.3);
@@ -665,6 +744,7 @@
       letter-spacing: 0.05em;
       color: var(--text-secondary);
       border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
     }
 
     td {
@@ -672,6 +752,7 @@
       border-bottom: 1px solid rgba(148, 197, 230, 0.08);
       font-family: 'JetBrains Mono', monospace;
       color: var(--text-primary);
+      white-space: nowrap;
     }
 
     tr:hover td {
@@ -789,9 +870,9 @@
 
   <!-- Hero Header -->
   <section class="hero">
-    <div class="hero-eyebrow">Coastal Geomorphology &amp; Risk Analytics</div>
-    <h1>Coastal Erosion Prediction <em>&amp; Risk Assessment</em></h1>
-    <p>Automated multi-year shoreline retreat modeling, linear regression extrapolation, hazard classification, and engineering mitigation planning powered by scientific coastal survey datasets.</p>
+    <div class="hero-eyebrow">Dynamic Coastal Geomorphology &amp; Risk Analytics</div>
+    <h1>Coastal Erosion Prediction <em>&amp; Dynamic Analytics</em></h1>
+    <p>Upload any coastal survey dataset with arbitrary column names (Year/Date, Area/Segment, Shoreline Position, Erosion Rate, or custom measurements) to train linear regression forecasts and risk models.</p>
   </section>
 
   <!-- Main Application Workspace -->
@@ -810,7 +891,7 @@
             <input type="file" id="fileInput" accept=".csv">
             <span class="drop-icon">📊</span>
             <div class="drop-text">Drop coastal survey CSV here</div>
-            <div class="drop-subtext">Supports NCCR / USGS / custom exports</div>
+            <div class="drop-subtext">Supports custom CSVs with different column names</div>
           </div>
 
           <div id="fileLoadedBanner" style="display:none;" class="file-loaded-banner">
@@ -822,29 +903,85 @@
             <span>✨</span> Load Built-in Demo Dataset (Goa/NCCR)
           </button>
 
-          <!-- Coastal Segment Selector -->
-          <div class="field-group">
-            <label class="field-label" for="segmentSelect">Coastal Segment</label>
-            <select id="segmentSelect" class="form-control">
-              <option value="Coastal Area A">Coastal Area A</option>
-            </select>
+          <a href="sample_custom_coastal_dataset.csv" download="sample_custom_coastal_dataset.csv" class="preset-btn" style="text-decoration:none; margin-top:8px; display:inline-flex;">
+            <span>📥</span> Download Sample CSV Dataset
+          </a>
+
+          <!-- Detected Columns Badge Strip -->
+          <div id="detectedColsWrap" class="detected-cols-wrap" style="display:none;">
+            <div class="detected-cols-header">
+              <span>Detected Columns</span>
+              <span id="detectedColsCount" style="color:var(--accent-cyan);">0</span>
+            </div>
+            <div class="detected-cols-list" id="detectedColsList"></div>
           </div>
 
-          <!-- Forecast Horizon -->
-          <div class="field-group">
-            <label class="field-label" for="horizonInput">Forecast Horizon (Years Ahead)</label>
-            <select id="horizonInput" class="form-control">
-              <option value="3">3 Years Ahead</option>
-              <option value="5" selected>5 Years Ahead (Standard)</option>
-              <option value="10">10 Years Ahead (Long-term)</option>
-              <option value="15">15 Years Ahead</option>
-              <option value="20">20 Years Ahead (Decadal)</option>
-            </select>
+          <!-- STEP 2: Dataset Configuration Section -->
+          <div class="config-card" id="configCard">
+            <div class="config-title">
+              <span>⚙️</span> Dataset Configuration
+            </div>
+
+            <!-- Time / Year Column -->
+            <div class="field-group">
+              <label class="field-label" for="timeColSelect">1. Time / Year Column</label>
+              <select id="timeColSelect" class="form-control">
+                <option value="Year">Year</option>
+              </select>
+            </div>
+
+            <!-- Location Column Mapping -->
+            <div class="field-group">
+              <label class="field-label" for="locationColSelect">2. Location Column (Optional)</label>
+              <select id="locationColSelect" class="form-control">
+                <option value="Segment">Segment</option>
+                <option value="None">None (Single Coast / Area)</option>
+              </select>
+            </div>
+
+            <!-- Coastal Segment / Location Selector -->
+            <div class="field-group" id="segmentFieldGroup">
+              <label class="field-label" for="segmentSelect">Target Location / Segment</label>
+              <select id="segmentSelect" class="form-control">
+                <option value="Coastal Area A">Coastal Area A</option>
+              </select>
+            </div>
+
+            <!-- Prediction Target Mode -->
+            <div class="field-group">
+              <label class="field-label" for="targetModeSelect">3. Prediction Target Mode</label>
+              <select id="targetModeSelect" class="form-control">
+                <option value="shoreline_position" selected>Shoreline Position (meters)</option>
+                <option value="erosion_rate">Erosion Rate (m/year)</option>
+                <option value="custom_numeric">Any Numeric Column</option>
+              </select>
+            </div>
+
+            <!-- Specific Target Column Selector -->
+            <div class="field-group">
+              <label class="field-label" for="targetColSelect">4. Prediction Target Column</label>
+              <select id="targetColSelect" class="form-control">
+                <option value="ShorelinePosition_m">ShorelinePosition_m</option>
+              </select>
+            </div>
+
+            <!-- Forecast Horizon -->
+            <div class="field-group">
+              <label class="field-label" for="horizonInput">5. Forecast Horizon (Years Ahead)</label>
+              <select id="horizonInput" class="form-control">
+                <option value="3">3 Years Ahead</option>
+                <option value="5" selected>5 Years Ahead (Standard)</option>
+                <option value="10">10 Years Ahead (Long-term)</option>
+                <option value="15">15 Years Ahead</option>
+                <option value="20">20 Years Ahead (Decadal)</option>
+              </select>
+            </div>
+
           </div>
 
           <!-- Run Button -->
           <button type="button" class="btn-primary" id="runBtn">
-            <span>🚀</span> Run Erosion Prediction
+            <span>🚀</span> Run Dynamic Prediction
           </button>
 
           <!-- Error Alert Banner -->
@@ -853,12 +990,12 @@
           <!-- Data Preprocessing Quality Box -->
           <div class="hygiene-box" id="hygieneBox" style="display:none;">
             <div class="hygiene-title">
-              <span>Data Preprocessing</span>
-              <span style="color:var(--risk-low);">● Cleaned</span>
+              <span>Data Validation &amp; Cleaning</span>
+              <span style="color:var(--risk-low);">● Validated</span>
             </div>
-            <div class="hygiene-row"><span>Historical records:</span> <strong id="hygieneValid">0</strong></div>
-            <div class="hygiene-row"><span>Invalid/NaN rows dropped:</span> <strong id="hygieneInvalid">0</strong></div>
-            <div class="hygiene-row"><span>Duplicate timestamps:</span> <strong id="hygieneDupes">0</strong></div>
+            <div class="hygiene-row"><span>Valid Records Used:</span> <strong id="hygieneValid">0</strong></div>
+            <div class="hygiene-row"><span>Invalid/NaN Rows Dropped:</span> <strong id="hygieneInvalid">0</strong></div>
+            <div class="hygiene-row"><span>Duplicate Timestamps Dropped:</span> <strong id="hygieneDupes">0</strong></div>
           </div>
 
         </div>
@@ -880,7 +1017,7 @@
             <span class="empty-icon">🌊</span>
             <div class="empty-title">No Analysis Executed Yet</div>
             <p style="font-size:13px; margin-top:6px; color:var(--text-muted);">
-              Upload a survey CSV or click <strong>"Load Built-in Demo Dataset"</strong> on the left to generate shoreline projections and risk assessments.
+              Upload your custom dataset CSV or click <strong>"Load Built-in Demo Dataset"</strong> to configure columns and forecast shoreline trends.
             </p>
           </div>
 
@@ -899,26 +1036,26 @@
             <!-- Key Metrics Ribbon -->
             <div class="metrics-ribbon">
               <div class="metric-card">
-                <div class="metric-k">Annual Erosion Rate</div>
-                <div class="metric-v"><span id="metricRate">0.00</span> <small>m/yr</small></div>
+                <div class="metric-k" id="metricRateTitle">Annual Rate of Change</div>
+                <div class="metric-v"><span id="metricRate">0.00</span> <small id="metricRateUnit">units/yr</small></div>
                 <div class="metric-sub" id="metricRateSub">Long-run trend slope</div>
               </div>
 
               <div class="metric-card">
-                <div class="metric-k">Forecast Position</div>
-                <div class="metric-v"><span id="metricPos">0.0</span> <small>m</small></div>
-                <div class="metric-sub" id="metricPosSub">by Year 2030</div>
+                <div class="metric-k" id="metricPosTitle">Forecast Value</div>
+                <div class="metric-v"><span id="metricPos">0.0</span> <small id="metricPosUnit">m</small></div>
+                <div class="metric-sub" id="metricPosSub">projected target</div>
               </div>
 
               <div class="metric-card">
                 <div class="metric-k">Model Fit (R²)</div>
                 <div class="metric-v"><span id="metricR2">0.000</span></div>
-                <div class="metric-sub" id="metricEquation">Position = mx + c</div>
+                <div class="metric-sub" id="metricEquation">Target = mx + c</div>
               </div>
 
               <div class="metric-card">
-                <div class="metric-k">Net Historical Loss</div>
-                <div class="metric-v"><span id="metricRetreat">0.0</span> <small>m</small></div>
+                <div class="metric-k" id="metricRetreatTitle">Net Historical Change</div>
+                <div class="metric-v"><span id="metricRetreat">0.0</span> <small id="metricRetreatUnit">units</small></div>
                 <div class="metric-sub" id="metricYearsSpan">2015 – 2025</div>
               </div>
             </div>
@@ -926,36 +1063,39 @@
             <!-- Tabbed Views -->
             <div class="tab-bar">
               <button type="button" class="tab-btn active" data-tab="tab-trend">
-                <span>📉</span> Shoreline Position Trend
+                <span>📉</span> Target Trend Projection
               </button>
               <button type="button" class="tab-btn" data-tab="tab-rates">
-                <span>📊</span> Annual Erosion Rates
+                <span>📊</span> Rate of Change
               </button>
               <button type="button" class="tab-btn" data-tab="tab-future">
-                <span>🔮</span> Projected Shoreline Table
+                <span>🔮</span> Projected Target Table
               </button>
               <button type="button" class="tab-btn" data-tab="tab-history">
-                <span>📋</span> Historical Survey Records
+                <span>📋</span> Cleaned Historical Records
+              </button>
+              <button type="button" class="tab-btn" data-tab="tab-preview">
+                <span>📄</span> Dataset Preview (First 10 Rows)
               </button>
             </div>
 
-            <!-- Tab 1: Shoreline Trend Chart -->
+            <!-- Tab 1: Dynamic Trend Chart -->
             <div class="tab-content active" id="tab-trend">
               <div class="chart-wrapper">
-                <img id="trendChartImg" class="chart-img" alt="Shoreline Trend Projection Chart">
+                <img id="trendChartImg" class="chart-img" alt="Target Trend Projection Chart">
               </div>
               <div class="chart-actions">
-                <a id="downloadTrendBtn" download="shoreline_trend_chart.png" class="btn-secondary">⬇ Download Trend Chart</a>
+                <a id="downloadTrendBtn" download="target_trend_chart.png" class="btn-secondary">⬇ Download Trend Chart</a>
               </div>
             </div>
 
-            <!-- Tab 2: Annual Erosion Rates Chart -->
+            <!-- Tab 2: Dynamic Rate of Change Chart -->
             <div class="tab-content" id="tab-rates">
               <div class="chart-wrapper">
-                <img id="rateChartImg" class="chart-img" alt="Annual Erosion Rate Bar Chart">
+                <img id="rateChartImg" class="chart-img" alt="Annual Rate of Change Chart">
               </div>
               <div class="chart-actions">
-                <a id="downloadRateBtn" download="annual_erosion_rate_chart.png" class="btn-secondary">⬇ Download Rate Chart</a>
+                <a id="downloadRateBtn" download="annual_change_rate_chart.png" class="btn-secondary">⬇ Download Rate Chart</a>
               </div>
             </div>
 
@@ -965,9 +1105,9 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>Forecast Year</th>
-                      <th>Predicted Position (m)</th>
-                      <th>Cumulative Loss vs Last Survey</th>
+                      <th id="thFutureTime">Forecast Time</th>
+                      <th id="thFutureTarget">Predicted Target Value</th>
+                      <th>Delta Change vs Last Observed</th>
                     </tr>
                   </thead>
                   <tbody id="futureTableBody"></tbody>
@@ -978,17 +1118,26 @@
             <!-- Tab 4: Historical Observations Table -->
             <div class="tab-content" id="tab-history">
               <div class="table-container">
-                <table>
-                  <thead>
+                <table id="historyTable">
+                  <thead id="historyTableHead">
                     <tr>
-                      <th>Survey Year</th>
-                      <th>Position (m)</th>
-                      <th>Delta Change (m)</th>
-                      <th>Erosion Rate (m/yr)</th>
-                      <th>Data Source</th>
+                      <th>Time</th>
+                      <th>Target Value</th>
+                      <th>Delta Change</th>
+                      <th>Rate of Change</th>
                     </tr>
                   </thead>
                   <tbody id="historyTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 5: Raw Dataset Preview (First 10 rows) -->
+            <div class="tab-content" id="tab-preview">
+              <div class="table-container">
+                <table id="previewTable">
+                  <thead id="previewTableHead"></thead>
+                  <tbody id="previewTableBody"></tbody>
                 </table>
               </div>
             </div>
@@ -1009,7 +1158,7 @@
   </main>
 
   <footer>
-    Coastal Erosion Prediction System · Scikit-Learn Regression &amp; Geomorphic Risk Analytics
+    Coastal Erosion Prediction System · Dynamic Regression &amp; Geomorphic Risk Analytics
   </footer>
 
   <script>
@@ -1017,6 +1166,7 @@
     let activeRawCsv = null;
     let activeFile = null;
     let currentAnalysisData = null;
+    let currentInspectionData = null;
 
     const statusDot = document.getElementById('statusDot');
     const statusText = document.getElementById('statusText');
@@ -1026,8 +1176,19 @@
     const loadedFileName = document.getElementById('loadedFileName');
     const clearFileBtn = document.getElementById('clearFileBtn');
     const loadSampleBtn = document.getElementById('loadSampleBtn');
+
+    const detectedColsWrap = document.getElementById('detectedColsWrap');
+    const detectedColsList = document.getElementById('detectedColsList');
+    const detectedColsCount = document.getElementById('detectedColsCount');
+
+    const timeColSelect = document.getElementById('timeColSelect');
+    const locationColSelect = document.getElementById('locationColSelect');
+    const segmentFieldGroup = document.getElementById('segmentFieldGroup');
     const segmentSelect = document.getElementById('segmentSelect');
+    const targetModeSelect = document.getElementById('targetModeSelect');
+    const targetColSelect = document.getElementById('targetColSelect');
     const horizonInput = document.getElementById('horizonInput');
+
     const runBtn = document.getElementById('runBtn');
     const errorAlert = document.getElementById('errorAlert');
     const resultsContainer = document.getElementById('resultsContainer');
@@ -1052,34 +1213,13 @@
       }
     }
 
-    // Populate segment options
-    function updateSegments(segments, preselect = null) {
-      segmentSelect.innerHTML = '';
-      if (!segments || segments.length === 0) {
-        const opt = document.createElement('option');
-        opt.value = "Coastal Area A";
-        opt.textContent = "Coastal Area A";
-        segmentSelect.appendChild(opt);
-        return;
-      }
-
-      segments.forEach(seg => {
-        const opt = document.createElement('option');
-        opt.value = seg;
-        opt.textContent = seg;
-        if (preselect && seg.toLowerCase() === preselect.toLowerCase()) {
-          opt.selected = true;
-        }
-        segmentSelect.appendChild(opt);
-      });
-    }
-
-    // Inspect segments from CSV
-    async function inspectSegmentsFromData(fileOrCsv) {
+    // Inspect uploaded dataset and populate column mapping dropdowns
+    async function inspectAndConfigure(fileOrCsv) {
+      hideError();
       try {
         let res;
         if (typeof fileOrCsv === 'string') {
-          res = await fetch(`${API_BASE}/api/segments`, {
+          res = await fetch(`${API_BASE}/api/inspect`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ csv: fileOrCsv })
@@ -1087,17 +1227,188 @@
         } else {
           const form = new FormData();
           form.append('file', fileOrCsv);
-          res = await fetch(`${API_BASE}/api/segments`, { method: 'POST', body: form });
+          res = await fetch(`${API_BASE}/api/inspect`, { method: 'POST', body: form });
         }
-        if (res.ok) {
-          const data = await res.json();
-          if (data.segments && data.segments.length > 0) {
-            updateSegments(data.segments);
-          }
+
+        const data = await res.json();
+        if (!res.ok || data.status === 'error') {
+          throw new Error(data.error || 'Failed to inspect dataset columns.');
         }
-      } catch (e) {
-        console.warn('Could not inspect segments:', e);
+
+        currentInspectionData = data;
+        renderDetectedColumns(data);
+        populateMappingControls(data);
+        renderPreviewTable(data);
+      } catch (err) {
+        showError("Dataset Inspection Error: " + err.message);
       }
+    }
+
+    // STEP 1: Render detected column badges
+    function renderDetectedColumns(data) {
+      detectedColsWrap.style.display = 'block';
+      detectedColsCount.textContent = `${data.columns.length} columns detected`;
+      detectedColsList.innerHTML = '';
+
+      data.columns.forEach(col => {
+        const type = data.columnTypes[col] || 'text';
+        const isNum = type === 'numeric';
+        const badge = document.createElement('span');
+        badge.className = `col-badge ${isNum ? 'numeric' : 'text'}`;
+        badge.innerHTML = `${isNum ? '🔢' : '🔤'} ${col}`;
+        detectedColsList.appendChild(badge);
+      });
+    }
+
+    // STEP 2 & 3: Populate Column Mapping Interface
+    function populateMappingControls(data) {
+      const { columns, numericColumns, textColumns, autoMapping, locations } = data;
+
+      // 1. Time / Year Column Select
+      timeColSelect.innerHTML = '';
+      columns.forEach(col => {
+        const opt = document.createElement('option');
+        opt.value = col;
+        opt.textContent = `${col} ${data.columnTypes[col] === 'numeric' ? '(Numeric)' : ''}`;
+        if (autoMapping && autoMapping.timeColumn === col) opt.selected = true;
+        timeColSelect.appendChild(opt);
+      });
+
+      // 2. Location Column Select
+      locationColSelect.innerHTML = '';
+      const noneOpt = document.createElement('option');
+      noneOpt.value = "None";
+      noneOpt.textContent = "None (Single Area / Whole Dataset)";
+      locationColSelect.appendChild(noneOpt);
+
+      textColumns.forEach(col => {
+        const opt = document.createElement('option');
+        opt.value = col;
+        opt.textContent = `${col} (Text/Category)`;
+        if (autoMapping && autoMapping.locationColumn === col) opt.selected = true;
+        locationColSelect.appendChild(opt);
+      });
+
+      // Also allow numeric location columns if needed
+      numericColumns.forEach(col => {
+        if (col !== autoMapping?.timeColumn && col !== autoMapping?.targetColumn) {
+          const opt = document.createElement('option');
+          opt.value = col;
+          opt.textContent = `${col} (Numeric Identifier)`;
+          if (autoMapping && autoMapping.locationColumn === col) opt.selected = true;
+          locationColSelect.appendChild(opt);
+        }
+      });
+
+      // 3. Location Segment Values Select
+      updateLocationValues(locations);
+
+      // 4. Target Column Select
+      updateTargetOptions(numericColumns, columns, autoMapping?.targetColumn);
+    }
+
+    function updateLocationValues(locations) {
+      segmentSelect.innerHTML = '';
+      if (!locations || locations.length === 0) {
+        segmentFieldGroup.style.display = 'none';
+        const opt = document.createElement('option');
+        opt.value = "ALL";
+        opt.textContent = "All Records";
+        segmentSelect.appendChild(opt);
+        return;
+      }
+
+      segmentFieldGroup.style.display = 'block';
+      locations.forEach((loc, idx) => {
+        const opt = document.createElement('option');
+        opt.value = loc;
+        opt.textContent = loc;
+        if (idx === 0) opt.selected = true;
+        segmentSelect.appendChild(opt);
+      });
+    }
+
+    function updateTargetOptions(numericColumns, allColumns, preselected = null) {
+      targetColSelect.innerHTML = '';
+      const pool = numericColumns.length > 0 ? numericColumns : allColumns;
+
+      pool.forEach(col => {
+        const opt = document.createElement('option');
+        opt.value = col;
+        opt.textContent = col;
+        if (preselected && col === preselected) {
+          opt.selected = true;
+        }
+        targetColSelect.appendChild(opt);
+      });
+    }
+
+    // React to Location Column change
+    locationColSelect.addEventListener('change', async () => {
+      const selectedLocCol = locationColSelect.value;
+      if (selectedLocCol === "None") {
+        segmentFieldGroup.style.display = 'none';
+      } else {
+        segmentFieldGroup.style.display = 'block';
+        // Query backend for segments of this column if needed
+        try {
+          const form = new FormData();
+          if (activeFile) form.append('file', activeFile);
+          else form.append('csv', activeRawCsv);
+          form.append('location_col', selectedLocCol);
+
+          const res = await fetch(`${API_BASE}/api/segments`, { method: 'POST', body: form });
+          if (res.ok) {
+            const data = await res.json();
+            updateLocationValues(data.segments || []);
+          }
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+    });
+
+    // React to Target Mode change
+    targetModeSelect.addEventListener('change', () => {
+      const mode = targetModeSelect.value;
+      if (!currentInspectionData) return;
+
+      const numCols = currentInspectionData.numericColumns || [];
+      if (mode === "shoreline_position") {
+        const match = numCols.find(c => /position|shoreline|width/i.test(c)) || numCols[0];
+        if (match) targetColSelect.value = match;
+      } else if (mode === "erosion_rate") {
+        const match = numCols.find(c => /rate|change|loss/i.test(c)) || numCols[0];
+        if (match) targetColSelect.value = match;
+      }
+    });
+
+    // STEP 1: Render Preview Table (First 10 rows)
+    function renderPreviewTable(data) {
+      const thead = document.getElementById('previewTableHead');
+      const tbody = document.getElementById('previewTableBody');
+      thead.innerHTML = '';
+      tbody.innerHTML = '';
+
+      if (!data.columns || !data.preview || data.preview.length === 0) return;
+
+      const trHead = document.createElement('tr');
+      data.columns.forEach(col => {
+        const th = document.createElement('th');
+        th.textContent = col;
+        trHead.appendChild(th);
+      });
+      thead.appendChild(trHead);
+
+      data.preview.forEach(row => {
+        const tr = document.createElement('tr');
+        data.columns.forEach(col => {
+          const td = document.createElement('td');
+          td.textContent = row[col] !== null && row[col] !== undefined ? row[col] : '-';
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
     }
 
     // Handle File Drop & Selection
@@ -1108,7 +1419,7 @@
       loadedFileName.textContent = file.name;
       fileLoadedBanner.style.display = 'flex';
       hideError();
-      inspectSegmentsFromData(file);
+      inspectAndConfigure(file);
     }
 
     fileInput.addEventListener('change', (e) => {
@@ -1135,6 +1446,7 @@
       activeRawCsv = null;
       fileInput.value = '';
       fileLoadedBanner.style.display = 'none';
+      detectedColsWrap.style.display = 'none';
     });
 
     // Load built-in demo dataset
@@ -1150,7 +1462,15 @@
         fileInput.value = '';
         loadedFileName.textContent = `${data.filename} (Built-in Demo Dataset)`;
         fileLoadedBanner.style.display = 'flex';
-        updateSegments(data.segments || ["Coastal Area A"]);
+
+        if (data.inspection) {
+          currentInspectionData = data.inspection;
+          renderDetectedColumns(data.inspection);
+          populateMappingControls(data.inspection);
+          renderPreviewTable(data.inspection);
+        } else {
+          inspectAndConfigure(data.csv);
+        }
       } catch (err) {
         showError("Failed to load sample dataset: " + err.message);
       }
@@ -1174,15 +1494,16 @@
         
         btn.classList.add('active');
         const targetId = btn.getAttribute('data-tab');
-        document.getElementById(targetId).classList.add('active');
+        const targetElem = document.getElementById(targetId);
+        if (targetElem) targetElem.classList.add('active');
       });
     });
 
-    // Run Analysis
+    // STEP 4 & 5: Run Dynamic Prediction
     runBtn.addEventListener('click', async () => {
       hideError();
 
-      // If neither custom file nor sample is loaded, automatically fetch sample
+      // If no data loaded, auto load sample
       if (!activeFile && !activeRawCsv) {
         try {
           const sampleRes = await fetch(`${API_BASE}/api/sample`);
@@ -1190,38 +1511,70 @@
           activeRawCsv = sampleData.csv;
           loadedFileName.textContent = `${sampleData.filename} (Built-in Demo Dataset)`;
           fileLoadedBanner.style.display = 'flex';
-          updateSegments(sampleData.segments || ["Coastal Area A"]);
+          if (sampleData.inspection) {
+            populateMappingControls(sampleData.inspection);
+          }
         } catch (e) {
-          showError("Please upload a CSV file or load the sample dataset.");
+          showError("Please upload a CSV file or load the demo dataset.");
           return;
         }
       }
 
+      // STEP 4: Client-side Validation Checks
+      const timeCol = timeColSelect.value;
+      const targetCol = targetColSelect.value;
+      const locationCol = locationColSelect.value;
+      const segment = segmentSelect.value;
+      const horizon = horizonInput.value;
+      const targetType = targetModeSelect.value;
+
+      if (!timeCol) {
+        showError("Validation Error: Please select a valid Time / Year column.");
+        return;
+      }
+      if (!targetCol) {
+        showError("Validation Error: Please select a valid numeric Target column.");
+        return;
+      }
+      if (timeCol === targetCol) {
+        showError("Validation Error: Time column and Prediction Target column cannot be the same.");
+        return;
+      }
+
       runBtn.disabled = true;
-      runBtn.innerHTML = `<span>⏳</span> Computing Projections...`;
+      runBtn.innerHTML = `<span>⏳</span> Training Linear Model &amp; Predicting...`;
 
       try {
-        const segment = segmentSelect.value;
-        const horizon = horizonInput.value;
         let res;
-
         if (activeFile) {
           const form = new FormData();
           form.append('file', activeFile);
+          form.append('time_col', timeCol);
+          form.append('target_col', targetCol);
+          form.append('location_col', locationCol);
           form.append('segment', segment);
           form.append('horizon', horizon);
+          form.append('target_type', targetType);
           res = await fetch(`${API_BASE}/api/analyze`, { method: 'POST', body: form });
         } else {
           res = await fetch(`${API_BASE}/api/analyze`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ csv: activeRawCsv, segment, horizon })
+            body: JSON.stringify({
+              csv: activeRawCsv,
+              time_col: timeCol,
+              target_col: targetCol,
+              location_col: locationCol,
+              segment,
+              horizon,
+              target_type: targetType
+            })
           });
         }
 
         const data = await res.json();
         if (!res.ok || data.status === 'error') {
-          throw new Error(data.error || 'Failed to process coastal erosion model.');
+          throw new Error(data.error || 'Failed to process dataset prediction.');
         }
 
         currentAnalysisData = data;
@@ -1230,19 +1583,19 @@
         showError(err.message);
       } finally {
         runBtn.disabled = false;
-        runBtn.innerHTML = `<span>🚀</span> Run Erosion Prediction`;
+        runBtn.innerHTML = `<span>🚀</span> Run Dynamic Prediction`;
       }
     });
 
-    // Render Results
+    // STEP 6: Render Dynamic Results
     function renderResults(data) {
       emptyState.style.display = 'none';
       resultsContainer.style.display = 'block';
       exportBtnGroup.style.display = 'flex';
 
-      // Hygiene metrics
+      // Hygiene & Validation Box
       hygieneBox.style.display = 'block';
-      document.getElementById('hygieneValid').textContent = `${data.recordCount} years`;
+      document.getElementById('hygieneValid').textContent = `${data.recordCount} valid records`;
       document.getElementById('hygieneInvalid').textContent = `${data.droppedInvalidRows} rows`;
       document.getElementById('hygieneDupes').textContent = `${data.droppedDuplicateRows} rows`;
 
@@ -1260,16 +1613,29 @@
       riskDesc.textContent = data.riskDescription;
       riskActionPriority.textContent = data.riskActionPriority || "Action Plan Active";
 
-      // Metric Ribbon
-      document.getElementById('metricRate').textContent = data.erosionRateMPerYr.toFixed(2);
-      document.getElementById('metricPos').textContent = data.predictedPositionM.toFixed(1);
-      document.getElementById('metricPosSub').textContent = `projected by ${data.targetYear}`;
+      // Dynamic Metric Ribbon
+      const timeCol = data.selectedTimeColumn || 'Time';
+      const targetCol = data.selectedTargetColumn || 'Target';
+
+      document.getElementById('metricRateTitle').textContent = `Annual ${targetCol} Slope`;
+      document.getElementById('metricRate').textContent = data.slope.toFixed(2);
+      document.getElementById('metricRateUnit').textContent = `/year`;
+      document.getElementById('metricRateSub').textContent = `Change rate of ${targetCol}`;
+
+      document.getElementById('metricPosTitle').textContent = `Predicted ${targetCol}`;
+      document.getElementById('metricPos').textContent = data.predictedTargetVal.toFixed(2);
+      document.getElementById('metricPosUnit').textContent = ``;
+      document.getElementById('metricPosSub').textContent = `by ${timeCol} ${data.targetYear}`;
+
       document.getElementById('metricR2').textContent = data.rSquared.toFixed(3);
       document.getElementById('metricEquation').textContent = data.equation || `Slope: ${data.slope.toFixed(2)}`;
-      document.getElementById('metricRetreat').textContent = (data.totalHistoricalRetreatM || 0).toFixed(1);
-      document.getElementById('metricYearsSpan').textContent = `${data.firstYear} – ${data.lastYear}`;
 
-      // Charts
+      document.getElementById('metricRetreatTitle').textContent = `Historical Change (${targetCol})`;
+      document.getElementById('metricRetreat').textContent = data.totalHistoricalChange !== undefined ? data.totalHistoricalChange.toFixed(2) : data.totalHistoricalRetreatM.toFixed(2);
+      document.getElementById('metricRetreatUnit').textContent = ``;
+      document.getElementById('metricYearsSpan').textContent = `${timeCol} ${data.firstYear} – ${data.lastYear}`;
+
+      // Dynamic Charts
       const timestamp = Date.now();
       const trendImg = document.getElementById('trendChartImg');
       const rateImg = document.getElementById('rateChartImg');
@@ -1279,42 +1645,57 @@
       document.getElementById('downloadTrendBtn').href = data.trendChartUrl;
       document.getElementById('downloadRateBtn').href = data.erosionRateChartUrl;
 
-      // Future Table
+      // Dynamic Future Table
+      document.getElementById('thFutureTime').textContent = `Forecast ${timeCol}`;
+      document.getElementById('thFutureTarget').textContent = `Predicted ${targetCol}`;
+
       const futureBody = document.getElementById('futureTableBody');
       futureBody.innerHTML = '';
-      const lastHistPos = data.lastHistoricalPositionM || (data.history[data.history.length - 1].ShorelinePosition_m);
+      const lastHistVal = data.lastHistoricalPositionM;
       
       data.future.forEach(f => {
         const tr = document.createElement('tr');
-        const deltaFromLast = (lastHistPos - f.PredictedPosition_m).toFixed(2);
+        const fVal = f.StandardTarget !== undefined ? f.StandardTarget : f.PredictedPosition_m;
+        const fTime = f.StandardTime !== undefined ? f.StandardTime : f.Year;
+        const delta = (fVal - lastHistVal).toFixed(2);
+        const deltaSign = Number(delta) > 0 ? `+${delta}` : delta;
+        const badgeClass = Number(delta) < 0 ? 'badge-retreat' : (Number(delta) > 0 ? 'badge-accretion' : '');
+
         tr.innerHTML = `
-          <td><strong>${f.Year}</strong></td>
-          <td>${f.PredictedPosition_m.toFixed(2)} m</td>
-          <td class="badge-retreat">-${deltaFromLast} m retreat</td>
+          <td><strong>${fTime}</strong></td>
+          <td>${Number(fVal).toFixed(2)}</td>
+          <td class="${badgeClass}">${deltaSign} vs ${timeCol} ${data.lastYear}</td>
         `;
         futureBody.appendChild(tr);
       });
 
-      // History Table
+      // Dynamic History Table
+      const historyHead = document.getElementById('historyTableHead');
       const historyBody = document.getElementById('historyTableBody');
+      historyHead.innerHTML = '';
       historyBody.innerHTML = '';
-      data.history.forEach(h => {
-        const tr = document.createElement('tr');
-        const changeVal = h.ShorelineChange_m ? Number(h.ShorelineChange_m).toFixed(2) : '0.00';
-        const rateVal = h.ErosionRate_m_per_yr !== undefined ? Number(h.ErosionRate_m_per_yr).toFixed(2) : '0.00';
-        const isRetreat = Number(rateVal) > 0;
-        const rateClass = isRetreat ? 'badge-retreat' : (Number(rateVal) < 0 ? 'badge-accretion' : '');
-        const ratePrefix = Number(rateVal) > 0 ? '+' : '';
 
-        tr.innerHTML = `
-          <td><strong>${h.Year}</strong></td>
-          <td>${Number(h.ShorelinePosition_m).toFixed(2)} m</td>
-          <td>${changeVal} m</td>
-          <td class="${rateClass}">${ratePrefix}${rateVal} m/yr</td>
-          <td><span style="opacity:0.75;">${h.DataSource || 'Survey'}</span></td>
-        `;
-        historyBody.appendChild(tr);
-      });
+      if (data.history && data.history.length > 0) {
+        const histCols = Object.keys(data.history[0]);
+        const trH = document.createElement('tr');
+        histCols.forEach(col => {
+          const th = document.createElement('th');
+          th.textContent = col;
+          trH.appendChild(th);
+        });
+        historyHead.appendChild(trH);
+
+        data.history.forEach(row => {
+          const tr = document.createElement('tr');
+          histCols.forEach(col => {
+            const td = document.createElement('td');
+            const val = row[col];
+            td.textContent = (typeof val === 'number') ? val.toFixed(2) : (val !== null && val !== undefined ? val : '-');
+            tr.appendChild(td);
+          });
+          historyBody.appendChild(tr);
+        });
+      }
 
       // Recommendations list
       const recList = document.getElementById('recommendationList');
@@ -1334,22 +1715,27 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `coastal_analysis_${currentAnalysisData.segment.replace(/\s+/g, '_')}.json`;
+      a.download = `analysis_${(currentAnalysisData.segment || 'coastal').replace(/\s+/g, '_')}.json`;
       a.click();
       URL.revokeObjectURL(url);
     });
 
     document.getElementById('exportCsvBtn').addEventListener('click', () => {
       if (!currentAnalysisData || !currentAnalysisData.future) return;
-      let csv = "Year,PredictedPosition_m\n";
+      const timeCol = currentAnalysisData.selectedTimeColumn || 'Time';
+      const targetCol = currentAnalysisData.selectedTargetColumn || 'Target';
+
+      let csv = `${timeCol},Predicted_${targetCol}\n`;
       currentAnalysisData.future.forEach(f => {
-        csv += `${f.Year},${f.PredictedPosition_m}\n`;
+        const fVal = f.StandardTarget !== undefined ? f.StandardTarget : f.PredictedPosition_m;
+        const fTime = f.StandardTime !== undefined ? f.StandardTime : f.Year;
+        csv += `${fTime},${fVal}\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `projections_${currentAnalysisData.segment.replace(/\s+/g, '_')}.csv`;
+      a.download = `projections_${(currentAnalysisData.segment || 'coastal').replace(/\s+/g, '_')}.csv`;
       a.click();
       URL.revokeObjectURL(url);
     });
