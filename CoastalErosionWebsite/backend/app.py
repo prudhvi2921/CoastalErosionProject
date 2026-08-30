@@ -62,7 +62,28 @@ candidate_paths = [
 ]
 FRONTEND_DIR = next((p for p in candidate_paths if os.path.exists(os.path.join(p, "index.html"))), candidate_paths[0])
 
-app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
+import math
+import numpy as np
+import pandas as pd
+
+
+def sanitize_for_json(obj):
+    """Recursively sanitize Python data structures to ensure strictly valid RFC 8259 JSON (no NaN / Inf)."""
+    if isinstance(obj, dict):
+        return {str(k): sanitize_for_json(v) for k, v in obj.items()}
+    elif isinstance(obj, (list, tuple, set)):
+        return [sanitize_for_json(item) for item in obj]
+    elif isinstance(obj, (float, np.floating)):
+        if math.isnan(obj) or np.isnan(obj) or math.isinf(obj) or np.isinf(obj):
+            return 0.0
+        return float(obj)
+    elif isinstance(obj, (int, np.integer)):
+        return int(obj)
+    elif isinstance(obj, (bool, np.bool_)):
+        return bool(obj)
+    elif pd.isna(obj):
+        return None
+    return obj
 
 
 def clean_old_charts(max_age_seconds: int = 1800):
@@ -92,13 +113,13 @@ def sample():
         with open(SAMPLE_CSV, "r", encoding="utf-8") as f:
             content = f.read()
         inspection = inspect_dataset(SAMPLE_CSV)
-        return jsonify({
+        return jsonify(sanitize_for_json({
             "status": "success",
             "csv": content,
             "filename": "coastal_data.csv",
             "segments": inspection.get("locations", ["Coastal Area A"]),
             "inspection": inspection
-        })
+        }))
     except Exception as exc:
         return jsonify({"status": "error", "error": str(exc)}), 500
 
@@ -118,7 +139,7 @@ def inspect():
             return jsonify({"status": "error", "error": "No CSV file or data provided"}), 400
 
         result = inspect_dataset(temp_path)
-        return jsonify({
+        return jsonify(sanitize_for_json({
             "status": "success",
             "columns": result["columns"],
             "numericColumns": result["numericColumns"],
@@ -128,7 +149,7 @@ def inspect():
             "rowCount": result["rowCount"],
             "autoMapping": result["autoMapping"],
             "locations": result["locations"]
-        })
+        }))
     except Exception as exc:
         return jsonify({"status": "error", "error": str(exc)}), 400
     finally:
@@ -155,7 +176,7 @@ def inspect_segments():
 
         loc_col = request.form.get("location_col") or (request.json or {}).get("location_col", "Segment")
         segments = get_segments(temp_path, location_col=loc_col)
-        return jsonify({"status": "success", "segments": segments})
+        return jsonify(sanitize_for_json({"status": "success", "segments": segments}))
     except Exception as exc:
         return jsonify({"status": "error", "error": str(exc)}), 400
     finally:
@@ -259,10 +280,11 @@ def analyze():
 
         display_cols = list(cleaned.columns)
         display_cols = [c for c in display_cols if not c.startswith("_") and c not in ["StandardTime", "StandardTarget"]]
-        history_records = cleaned[display_cols].to_dict(orient="records")
-        future_records = future[["Year", "PredictedPosition_m", "StandardTime", "StandardTarget"]].to_dict(orient="records")
+        history_df = cleaned[display_cols].copy().fillna(0.0)
+        history_records = sanitize_for_json(history_df.to_dict(orient="records"))
+        future_records = sanitize_for_json(future[["Year", "PredictedPosition_m", "StandardTime", "StandardTarget"]].to_dict(orient="records"))
 
-        return jsonify({
+        response_payload = {
             "status": "success",
             "selectedTimeColumn": time_col,
             "selectedTargetColumn": target_col,
@@ -297,7 +319,8 @@ def analyze():
             "future": future_records,
             "trendChartUrl": f"/static/charts/{trend_chart_name}",
             "erosionRateChartUrl": f"/static/charts/{rate_chart_name}",
-        })
+        }
+        return jsonify(sanitize_for_json(response_payload))
     except Exception as exc:
         return jsonify({"status": "error", "error": str(exc)}), 400
     finally:

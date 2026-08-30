@@ -251,13 +251,13 @@ def compute_dynamic_changes(df: pd.DataFrame) -> pd.DataFrame:
     time_s = work["StandardTime"]
     target_s = work["StandardTarget"]
 
-    work["DeltaChange"] = target_s.diff()
-    work["TimeElapsed"] = time_s.diff()
+    work["DeltaChange"] = target_s.diff().fillna(0.0)
+    work["TimeElapsed"] = time_s.diff().fillna(0.0)
 
     time_elapsed = work["TimeElapsed"].replace(0, 1)
     # Rate of change per unit time
-    work["RateOfChange"] = (work["DeltaChange"] / time_elapsed).round(3)
-    work.loc[work.index[0], ["DeltaChange", "RateOfChange"]] = 0.0
+    work["RateOfChange"] = (work["DeltaChange"] / time_elapsed).round(3).fillna(0.0)
+    work.loc[work.index[0], ["DeltaChange", "RateOfChange", "TimeElapsed"]] = 0.0
     return work
 
 
@@ -333,10 +333,10 @@ def clean_data(df: pd.DataFrame, segment: Optional[str] = None) -> pd.DataFrame:
 def compute_changes(df: pd.DataFrame) -> pd.DataFrame:
     """Legacy change computer."""
     dynamic_df = compute_dynamic_changes(df)
-    dynamic_df["ShorelineChange_m"] = dynamic_df["DeltaChange"]
-    dynamic_df["YearsElapsed"] = dynamic_df["TimeElapsed"]
-    dynamic_df["ErosionRate_m_per_yr"] = (-dynamic_df["DeltaChange"] / dynamic_df["YearsElapsed"].replace(0, 1)).round(3)
-    dynamic_df.loc[dynamic_df.index[0], ["ShorelineChange_m", "ErosionRate_m_per_yr"]] = 0.0
+    dynamic_df["ShorelineChange_m"] = dynamic_df["DeltaChange"].fillna(0.0)
+    dynamic_df["YearsElapsed"] = dynamic_df["TimeElapsed"].fillna(0.0)
+    dynamic_df["ErosionRate_m_per_yr"] = (-dynamic_df["DeltaChange"] / dynamic_df["YearsElapsed"].replace(0, 1)).round(3).fillna(0.0)
+    dynamic_df.loc[dynamic_df.index[0], ["ShorelineChange_m", "ErosionRate_m_per_yr", "YearsElapsed", "TimeElapsed", "DeltaChange", "RateOfChange"]] = 0.0
     return dynamic_df
 
 

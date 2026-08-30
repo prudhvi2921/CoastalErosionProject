@@ -197,14 +197,21 @@ def test_flask_app_endpoints():
         "horizon": 5,
         "target_type": "shoreline_position"
     })
-    assert res.status_code == 200
+    # Assert strictly compliant standard JSON (no NaN / Infinity / syntax errors for JS JSON.parse)
+    raw_payload = res.data.decode("utf-8")
+    assert "NaN" not in raw_payload, "API returned literal unquoted NaN in JSON payload!"
+    assert "Infinity" not in raw_payload, "API returned Infinity in JSON payload!"
+    import json
+    strict_parsed = json.loads(raw_payload, parse_constant=lambda x: (_ for _ in ()).throw(ValueError(f"Invalid JSON constant: {x}")))
+    assert strict_parsed["status"] == "success"
+
     res_json = res.get_json()
     assert res_json["status"] == "success"
     assert res_json["selectedTimeColumn"] == "Year"
     assert res_json["selectedTargetColumn"] == "ShorelinePosition_m"
     assert res_json["recordCount"] == 6
     assert len(res_json["future"]) == 5
-    print("POST /api/analyze OK with dynamic prediction response!")
+    print("POST /api/analyze OK with strictly compliant dynamic prediction JSON response!")
 
 
 if __name__ == "__main__":
