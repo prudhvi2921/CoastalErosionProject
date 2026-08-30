@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coastal Erosion Prediction &amp; Risk Assessment Platform</title>
+  <meta name="description" content="AI & Regression-powered Coastal Shoreline Erosion Analysis, Multi-Year Forecasting, and Risk Management Decision Support.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #061320;
+      --bg-surface: #0a1e32;
+      --bg-surface-elevated: #102a45;
+      --bg-card: rgba(16, 42, 69, 0.75);
+      --bg-glass: rgba(12, 34, 56, 0.65);
+      
+      --border-subtle: rgba(148, 197, 230, 0.15);
+      --border-focus: #0ea5e9;
+      --border-glow: rgba(14, 165, 233, 0.4);
+
+      --text-primary: #f0f9ff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-accent: #38bdf8;
+
+      --accent-cyan: #06b6d4;
+      --accent-blue: #0284c7;
+      --accent-indigo: #6366f1;
+      
+      --risk-low: #10b981;
+      --risk-mod: #f59e0b;
+      --risk-high: #f97316;
+      --risk-vhigh: #ef4444;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 25px rgba(6, 182, 212, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 10% 10%, #0d2847 0%, var(--bg-base) 90%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Top Navigation / Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 19, 32, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 4vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.4);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    .brand-title span {
+      background: linear-gradient(120deg, var(--accent-cyan), #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 42, 69, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-secondary);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--risk-low);
+      box-shadow: 0 0 10px var(--risk-low);
+      transition: background 0.3s;
+    }
+
+    .status-dot.checking {
+      background: var(--risk-mod);
+      box-shadow: 0 0 10px var(--risk-mod);
+    }
+
+    .status-dot.offline {
+      background: var(--risk-vhigh);
+      box-shadow: 0 0 10px var(--risk-vhigh);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 40px 4vw 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      max-width: 780px;
+      margin-top: 8px;
+    }
+
+    /* Main Content Layout */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 10px 4vw 60px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .app-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 1080px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Glass Cards */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-subtle);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      border-color: rgba(148, 197, 230, 0.25);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title-icon {
+      color: var(--accent-cyan);
+    }
+
+    /* Dropzone & Upload */
+    .dropzone {
+      border: 2px dashed rgba(14, 165, 233, 0.35);
+      background: rgba(10, 30, 50, 0.4);
+      border-radius: var(--radius-md);
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .dropzone:hover, .dropzone.drag-active {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+
+    .dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .drop-text {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .drop-subtext {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .file-loaded-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(14, 165, 233, 0.25);
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent-cyan);
+    }
+
+    /* Form Fields */
+    .field-group {
+      margin-top: 18px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      cursor: pointer;
+    }
+
+    .preset-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(14, 165, 233, 0.1);
+      border: 1px solid rgba(14, 165, 233, 0.25);
+      color: var(--accent-cyan);
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+
+    .preset-btn:hover {
+      background: rgba(14, 165, 233, 0.2);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Action Buttons */
+    .btn-primary {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 13px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(6, 182, 212, 0.35);
+      margin-top: 22px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(6, 182, 212, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* Preprocessing Info Box */
+    .hygiene-box {
+      margin-top: 20px;
+      padding: 12px 14px;
+      background: rgba(10, 30, 50, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+    }
+
+    .hygiene-title {
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hygiene-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .hygiene-row strong {
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Results Dashboard Grid */
+    .metrics-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric-k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .metric-v {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .metric-v small {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .metric-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Risk Banner */
+    .risk-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .risk-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .risk-indicator-pill {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-desc {
+      font-size: 13.5px;
+      color: var(--text-primary);
+      max-width: 620px;
+    }
+
+    .risk-action-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Tabs Navigation */
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: rgba(14, 165, 233, 0.15);
+      border-color: rgba(14, 165, 233, 0.35);
+      color: var(--accent-cyan);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Chart Container */
+    .chart-wrapper {
+      position: relative;
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .chart-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .chart-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--text-primary);
+      border-color: var(--border-focus);
+    }
+
+    /* Data Tables */
+    .table-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      max-height: 420px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+
+    thead {
+      position: sticky;
+      top: 0;
+      background: var(--bg-surface-elevated);
+      z-index: 10;
+    }
+
+    th {
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(148, 197, 230, 0.08);
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge-retreat {
+      color: var(--risk-high);
+      font-weight: 600;
+    }
+
+    .badge-accretion {
+      color: var(--risk-low);
+      font-weight: 600;
+    }
+
+    /* Mitigation Recommendations Card */
+    .recommendations-card {
+      margin-top: 20px;
+      background: rgba(16, 42, 69, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+
+    .recommendations-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recommendation-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .recommendation-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .recommendation-bullet {
+      color: var(--accent-cyan);
+      margin-top: 2px;
+    }
+
+    /* Empty and Error states */
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+      display: block;
+      opacity: 0.5;
+    }
+
+    .empty-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .error-alert {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      color: #fca5a5;
+      font-size: 13px;
+      margin-top: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 24px 4vw;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header>
+    <div class="brand-wrap">
+      <div class="brand-logo">🌊</div>
+      <div class="brand-title">Coast<span>Guard</span> AI</div>
+    </div>
+    <div class="status-badge">
+      <div class="status-dot checking" id="statusDot"></div>
+      <span id="statusText">Connecting backend...</span>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero">
+    <div class="hero-eyebrow">Coastal Geomorphology &amp; Risk Analytics</div>
+    <h1>Coastal Erosion Prediction <em>&amp; Risk Assessment</em></h1>
+    <p>Automated multi-year shoreline retreat modeling, linear regression extrapolation, hazard classification, and engineering mitigation planning powered by scientific coastal survey datasets.</p>
+  </section>
+
+  <!-- Main Application Workspace -->
+  <main>
+    <div class="app-layout">
+      
+      <!-- Left Panel: Input & Settings -->
+      <aside>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title"><span class="card-title-icon">📂</span> 1. Dataset &amp; Parameters</h2>
+          </div>
+
+          <!-- Drag and drop zone -->
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept=".csv">
+            <span class="drop-icon">📊</span>
+            <div class="drop-text">Drop coastal survey CSV here</div>
+            <div class="drop-subtext">Supports NCCR / USGS / custom exports</div>
+          </div>
+
+          <div id="fileLoadedBanner" style="display:none;" class="file-loaded-banner">
+            <span id="loadedFileName">dataset.csv</span>
+            <span style="cursor:pointer;" id="clearFileBtn" title="Clear file">✕</span>
+          </div>
+
+          <button type="button" class="preset-btn" id="loadSampleBtn">
+            <span>✨</span> Load Built-in Demo Dataset (Goa/NCCR)
+          </button>
+
+          <!-- Coastal Segment Selector -->
+          <div class="field-group">
+            <label class="field-label" for="segmentSelect">Coastal Segment</label>
+            <select id="segmentSelect" class="form-control">
+              <option value="Coastal Area A">Coastal Area A</option>
+            </select>
+          </div>
+
+          <!-- Forecast Horizon -->
+          <div class="field-group">
+            <label class="field-label" for="horizonInput">Forecast Horizon (Years Ahead)</label>
+            <select id="horizonInput" class="form-control">
+              <option value="3">3 Years Ahead</option>
+              <option value="5" selected>5 Years Ahead (Standard)</option>
+              <option value="10">10 Years Ahead (Long-term)</option>
+              <option value="15">15 Years Ahead</option>
+              <option value="20">20 Years Ahead (Decadal)</option>
+            </select>
+          </div>
+
+          <!-- Run Button -->
+          <button type="button" class="btn-primary" id="runBtn">
+            <span>🚀</span> Run Erosion Prediction
+          </button>
+
+          <!-- Error Alert Banner -->
+          <div id="errorAlert" class="error-alert" style="display:none;"></div>
+
+          <!-- Data Preprocessing Quality Box -->
+          <div class="hygiene-box" id="hygieneBox" style="display:none;">
+            <div class="hygiene-title">
+              <span>Data Preprocessing</span>
+              <span style="color:var(--risk-low);">● Cleaned</span>
+            </div>
+            <div class="hygiene-row"><span>Historical records:</span> <strong id="hygieneValid">0</strong></div>
+            <div class="hygiene-row"><span>Invalid/NaN rows dropped:</span> <strong id="hygieneInvalid">0</strong></div>
+            <div class="hygiene-row"><span>Duplicate timestamps:</span> <strong id="hygieneDupes">0</strong></div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- Right Panel: Results & Visualizations -->
+      <section>
+        <div class="card" id="resultsCard">
+          <div class="card-header">
+            <h2 class="card-title"><span class="card-title-icon">📈</span> 2. Prediction &amp; Risk Intelligence</h2>
+            <div id="exportBtnGroup" style="display:none; gap:8px;">
+              <button type="button" class="btn-secondary" id="exportJsonBtn">Export JSON</button>
+              <button type="button" class="btn-secondary" id="exportCsvBtn">Export Projections CSV</button>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="empty-state">
+            <span class="empty-icon">🌊</span>
+            <div class="empty-title">No Analysis Executed Yet</div>
+            <p style="font-size:13px; margin-top:6px; color:var(--text-muted);">
+              Upload a survey CSV or click <strong>"Load Built-in Demo Dataset"</strong> on the left to generate shoreline projections and risk assessments.
+            </p>
+          </div>
+
+          <!-- Active Results Container -->
+          <div id="resultsContainer" style="display:none;">
+            
+            <!-- Risk Banner -->
+            <div class="risk-banner" id="riskBanner">
+              <div class="risk-banner-left">
+                <div class="risk-indicator-pill" id="riskPill">HIGH RISK</div>
+                <div class="risk-desc" id="riskDesc">Significant shoreline retreat observed.</div>
+              </div>
+              <div class="risk-action-badge" id="riskActionPriority">Targeted Mitigation</div>
+            </div>
+
+            <!-- Key Metrics Ribbon -->
+            <div class="metrics-ribbon">
+              <div class="metric-card">
+                <div class="metric-k">Annual Erosion Rate</div>
+                <div class="metric-v"><span id="metricRate">0.00</span> <small>m/yr</small></div>
+                <div class="metric-sub" id="metricRateSub">Long-run trend slope</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-k">Forecast Position</div>
+                <div class="metric-v"><span id="metricPos">0.0</span> <small>m</small></div>
+                <div class="metric-sub" id="metricPosSub">by Year 2030</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-k">Model Fit (R²)</div>
+                <div class="metric-v"><span id="metricR2">0.000</span></div>
+                <div class="metric-sub" id="metricEquation">Position = mx + c</div>
+              </div>
+
+              <div class="metric-card">
+                <div class="metric-k">Net Historical Loss</div>
+                <div class="metric-v"><span id="metricRetreat">0.0</span> <small>m</small></div>
+                <div class="metric-sub" id="metricYearsSpan">2015 – 2025</div>
+              </div>
+            </div>
+
+            <!-- Tabbed Views -->
+            <div class="tab-bar">
+              <button type="button" class="tab-btn active" data-tab="tab-trend">
+                <span>📉</span> Shoreline Position Trend
+              </button>
+              <button type="button" class="tab-btn" data-tab="tab-rates">
+                <span>📊</span> Annual Erosion Rates
+              </button>
+              <button type="button" class="tab-btn" data-tab="tab-future">
+                <span>🔮</span> Projected Shoreline Table
+              </button>
+              <button type="button" class="tab-btn" data-tab="tab-history">
+                <span>📋</span> Historical Survey Records
+              </button>
+            </div>
+
+            <!-- Tab 1: Shoreline Trend Chart -->
+            <div class="tab-content active" id="tab-trend">
+              <div class="chart-wrapper">
+                <img id="trendChartImg" class="chart-img" alt="Shoreline Trend Projection Chart">
+              </div>
+              <div class="chart-actions">
+                <a id="downloadTrendBtn" download="shoreline_trend_chart.png" class="btn-secondary">⬇ Download Trend Chart</a>
+              </div>
+            </div>
+
+            <!-- Tab 2: Annual Erosion Rates Chart -->
+            <div class="tab-content" id="tab-rates">
+              <div class="chart-wrapper">
+                <img id="rateChartImg" class="chart-img" alt="Annual Erosion Rate Bar Chart">
+              </div>
+              <div class="chart-actions">
+                <a id="downloadRateBtn" download="annual_erosion_rate_chart.png" class="btn-secondary">⬇ Download Rate Chart</a>
+              </div>
+            </div>
+
+            <!-- Tab 3: Future Projections Table -->
+            <div class="tab-content" id="tab-future">
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Forecast Year</th>
+                      <th>Predicted Position (m)</th>
+                      <th>Cumulative Loss vs Last Survey</th>
+                    </tr>
+                  </thead>
+                  <tbody id="futureTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 4: Historical Observations Table -->
+            <div class="tab-content" id="tab-history">
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Survey Year</th>
+                      <th>Position (m)</th>
+                      <th>Delta Change (m)</th>
+                      <th>Erosion Rate (m/yr)</th>
+                      <th>Data Source</th>
+                    </tr>
+                  </thead>
+                  <tbody id="historyTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Risk Mitigation & Engineering Advisory -->
+            <div class="recommendations-card">
+              <div class="recommendations-title">
+                <span>🛡️</span> Recommended Action Plan &amp; Mitigation Strategies
+              </div>
+              <ul class="recommendation-list" id="recommendationList"></ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    Coastal Erosion Prediction System · Scikit-Learn Regression &amp; Geomorphic Risk Analytics
+  </footer>
+
+  <script>
+    const API_BASE = "";
+    let activeRawCsv = null;
+    let activeFile = null;
+    let currentAnalysisData = null;
+
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const fileLoadedBanner = document.getElementById('fileLoadedBanner');
+    const loadedFileName = document.getElementById('loadedFileName');
+    const clearFileBtn = document.getElementById('clearFileBtn');
+    const loadSampleBtn = document.getElementById('loadSampleBtn');
+    const segmentSelect = document.getElementById('segmentSelect');
+    const horizonInput = document.getElementById('horizonInput');
+    const runBtn = document.getElementById('runBtn');
+    const errorAlert = document.getElementById('errorAlert');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const emptyState = document.getElementById('emptyState');
+    const hygieneBox = document.getElementById('hygieneBox');
+    const exportBtnGroup = document.getElementById('exportBtnGroup');
+
+    // Health check
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/api/sample`);
+        if (res.ok) {
+          statusDot.className = 'status-dot';
+          statusText.textContent = 'Backend Online';
+          return true;
+        }
+        throw new Error();
+      } catch {
+        statusDot.className = 'status-dot offline';
+        statusText.textContent = 'Backend Offline';
+        return false;
+      }
+    }
+
+    // Populate segment options
+    function updateSegments(segments, preselect = null) {
+      segmentSelect.innerHTML = '';
+      if (!segments || segments.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = "Coastal Area A";
+        opt.textContent = "Coastal Area A";
+        segmentSelect.appendChild(opt);
+        return;
+      }
+
+      segments.forEach(seg => {
+        const opt = document.createElement('option');
+        opt.value = seg;
+        opt.textContent = seg;
+        if (preselect && seg.toLowerCase() === preselect.toLowerCase()) {
+          opt.selected = true;
+        }
+        segmentSelect.appendChild(opt);
+      });
+    }
+
+    // Inspect segments from CSV
+    async function inspectSegmentsFromData(fileOrCsv) {
+      try {
+        let res;
+        if (typeof fileOrCsv === 'string') {
+          res = await fetch(`${API_BASE}/api/segments`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ csv: fileOrCsv })
+          });
+        } else {
+          const form = new FormData();
+          form.append('file', fileOrCsv);
+          res = await fetch(`${API_BASE}/api/segments`, { method: 'POST', body: form });
+        }
+        if (res.ok) {
+          const data = await res.json();
+          if (data.segments && data.segments.length > 0) {
+            updateSegments(data.segments);
+          }
+        }
+      } catch (e) {
+        console.warn('Could not inspect segments:', e);
+      }
+    }
+
+    // Handle File Drop & Selection
+    function handleFile(file) {
+      if (!file) return;
+      activeFile = file;
+      activeRawCsv = null;
+      loadedFileName.textContent = file.name;
+      fileLoadedBanner.style.display = 'flex';
+      hideError();
+      inspectSegmentsFromData(file);
+    }
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('drag-active');
+    });
+
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('drag-active');
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('drag-active');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    clearFileBtn.addEventListener('click', () => {
+      activeFile = null;
+      activeRawCsv = null;
+      fileInput.value = '';
+      fileLoadedBanner.style.display = 'none';
+    });
+
+    // Load built-in demo dataset
+    loadSampleBtn.addEventListener('click', async () => {
+      hideError();
+      try {
+        const res = await fetch(`${API_BASE}/api/sample`);
+        const data = await res.json();
+        if (data.status === 'error') throw new Error(data.error);
+
+        activeRawCsv = data.csv;
+        activeFile = null;
+        fileInput.value = '';
+        loadedFileName.textContent = `${data.filename} (Built-in Demo Dataset)`;
+        fileLoadedBanner.style.display = 'flex';
+        updateSegments(data.segments || ["Coastal Area A"]);
+      } catch (err) {
+        showError("Failed to load sample dataset: " + err.message);
+      }
+    });
+
+    function showError(msg) {
+      errorAlert.innerHTML = `<span>⚠️</span> <div>${msg}</div>`;
+      errorAlert.style.display = 'flex';
+    }
+
+    function hideError() {
+      errorAlert.style.display = 'none';
+      errorAlert.innerHTML = '';
+    }
+
+    // Tab Switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const targetId = btn.getAttribute('data-tab');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // Run Analysis
+    runBtn.addEventListener('click', async () => {
+      hideError();
+
+      // If neither custom file nor sample is loaded, automatically fetch sample
+      if (!activeFile && !activeRawCsv) {
+        try {
+          const sampleRes = await fetch(`${API_BASE}/api/sample`);
+          const sampleData = await sampleRes.json();
+          activeRawCsv = sampleData.csv;
+          loadedFileName.textContent = `${sampleData.filename} (Built-in Demo Dataset)`;
+          fileLoadedBanner.style.display = 'flex';
+          updateSegments(sampleData.segments || ["Coastal Area A"]);
+        } catch (e) {
+          showError("Please upload a CSV file or load the sample dataset.");
+          return;
+        }
+      }
+
+      runBtn.disabled = true;
+      runBtn.innerHTML = `<span>⏳</span> Computing Projections...`;
+
+      try {
+        const segment = segmentSelect.value;
+        const horizon = horizonInput.value;
+        let res;
+
+        if (activeFile) {
+          const form = new FormData();
+          form.append('file', activeFile);
+          form.append('segment', segment);
+          form.append('horizon', horizon);
+          res = await fetch(`${API_BASE}/api/analyze`, { method: 'POST', body: form });
+        } else {
+          res = await fetch(`${API_BASE}/api/analyze`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ csv: activeRawCsv, segment, horizon })
+          });
+        }
+
+        const data = await res.json();
+        if (!res.ok || data.status === 'error') {
+          throw new Error(data.error || 'Failed to process coastal erosion model.');
+        }
+
+        currentAnalysisData = data;
+        renderResults(data);
+      } catch (err) {
+        showError(err.message);
+      } finally {
+        runBtn.disabled = false;
+        runBtn.innerHTML = `<span>🚀</span> Run Erosion Prediction`;
+      }
+    });
+
+    // Render Results
+    function renderResults(data) {
+      emptyState.style.display = 'none';
+      resultsContainer.style.display = 'block';
+      exportBtnGroup.style.display = 'flex';
+
+      // Hygiene metrics
+      hygieneBox.style.display = 'block';
+      document.getElementById('hygieneValid').textContent = `${data.recordCount} years`;
+      document.getElementById('hygieneInvalid').textContent = `${data.droppedInvalidRows} rows`;
+      document.getElementById('hygieneDupes').textContent = `${data.droppedDuplicateRows} rows`;
+
+      // Risk banner
+      const riskPill = document.getElementById('riskPill');
+      const riskBanner = document.getElementById('riskBanner');
+      const riskDesc = document.getElementById('riskDesc');
+      const riskActionPriority = document.getElementById('riskActionPriority');
+
+      riskPill.textContent = `${data.riskLevel.replace('_', ' ')} RISK`;
+      riskPill.style.background = data.riskColor;
+      riskPill.style.color = '#ffffff';
+      riskBanner.style.borderColor = data.riskColor;
+      riskBanner.style.background = data.riskColor + '18';
+      riskDesc.textContent = data.riskDescription;
+      riskActionPriority.textContent = data.riskActionPriority || "Action Plan Active";
+
+      // Metric Ribbon
+      document.getElementById('metricRate').textContent = data.erosionRateMPerYr.toFixed(2);
+      document.getElementById('metricPos').textContent = data.predictedPositionM.toFixed(1);
+      document.getElementById('metricPosSub').textContent = `projected by ${data.targetYear}`;
+      document.getElementById('metricR2').textContent = data.rSquared.toFixed(3);
+      document.getElementById('metricEquation').textContent = data.equation || `Slope: ${data.slope.toFixed(2)}`;
+      document.getElementById('metricRetreat').textContent = (data.totalHistoricalRetreatM || 0).toFixed(1);
+      document.getElementById('metricYearsSpan').textContent = `${data.firstYear} – ${data.lastYear}`;
+
+      // Charts
+      const timestamp = Date.now();
+      const trendImg = document.getElementById('trendChartImg');
+      const rateImg = document.getElementById('rateChartImg');
+      trendImg.src = `${data.trendChartUrl}?t=${timestamp}`;
+      rateImg.src = `${data.erosionRateChartUrl}?t=${timestamp}`;
+
+      document.getElementById('downloadTrendBtn').href = data.trendChartUrl;
+      document.getElementById('downloadRateBtn').href = data.erosionRateChartUrl;
+
+      // Future Table
+      const futureBody = document.getElementById('futureTableBody');
+      futureBody.innerHTML = '';
+      const lastHistPos = data.lastHistoricalPositionM || (data.history[data.history.length - 1].ShorelinePosition_m);
+      
+      data.future.forEach(f => {
+        const tr = document.createElement('tr');
+        const deltaFromLast = (lastHistPos - f.PredictedPosition_m).toFixed(2);
+        tr.innerHTML = `
+          <td><strong>${f.Year}</strong></td>
+          <td>${f.PredictedPosition_m.toFixed(2)} m</td>
+          <td class="badge-retreat">-${deltaFromLast} m retreat</td>
+        `;
+        futureBody.appendChild(tr);
+      });
+
+      // History Table
+      const historyBody = document.getElementById('historyTableBody');
+      historyBody.innerHTML = '';
+      data.history.forEach(h => {
+        const tr = document.createElement('tr');
+        const changeVal = h.ShorelineChange_m ? Number(h.ShorelineChange_m).toFixed(2) : '0.00';
+        const rateVal = h.ErosionRate_m_per_yr !== undefined ? Number(h.ErosionRate_m_per_yr).toFixed(2) : '0.00';
+        const isRetreat = Number(rateVal) > 0;
+        const rateClass = isRetreat ? 'badge-retreat' : (Number(rateVal) < 0 ? 'badge-accretion' : '');
+        const ratePrefix = Number(rateVal) > 0 ? '+' : '';
+
+        tr.innerHTML = `
+          <td><strong>${h.Year}</strong></td>
+          <td>${Number(h.ShorelinePosition_m).toFixed(2)} m</td>
+          <td>${changeVal} m</td>
+          <td class="${rateClass}">${ratePrefix}${rateVal} m/yr</td>
+          <td><span style="opacity:0.75;">${h.DataSource || 'Survey'}</span></td>
+        `;
+        historyBody.appendChild(tr);
+      });
+
+      // Recommendations list
+      const recList = document.getElementById('recommendationList');
+      recList.innerHTML = '';
+      (data.riskRecommendations || []).forEach(rec => {
+        const li = document.createElement('li');
+        li.className = 'recommendation-item';
+        li.innerHTML = `<span class="recommendation-bullet">✦</span> <span>${rec}</span>`;
+        recList.appendChild(li);
+      });
+    }
+
+    // Export Handlers
+    document.getElementById('exportJsonBtn').addEventListener('click', () => {
+      if (!currentAnalysisData) return;
+      const blob = new Blob([JSON.stringify(currentAnalysisData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `coastal_analysis_${currentAnalysisData.segment.replace(/\s+/g, '_')}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('exportCsvBtn').addEventListener('click', () => {
+      if (!currentAnalysisData || !currentAnalysisData.future) return;
+      let csv = "Year,PredictedPosition_m\n";
+      currentAnalysisData.future.forEach(f => {
+        csv += `${f.Year},${f.PredictedPosition_m}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `projections_${currentAnalysisData.segment.replace(/\s+/g, '_')}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Initialize
+    checkHealth();
+  </script>
+</body>
+</html>

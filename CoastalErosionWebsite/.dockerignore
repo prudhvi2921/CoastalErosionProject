@@ -1,0 +1,14 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+venv/
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/static/charts/*
+!backend/static/charts/.gitkeep
+outputs/
