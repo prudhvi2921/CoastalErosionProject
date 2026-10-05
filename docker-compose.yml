@@ -1,11 +1,33 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
+  # FastAPI Analytics & Core REST Engine (with built SPA frontend)
+  backend-python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: coastal-erosion-backend
     ports:
-      - "5000:5000"
+      - "8000:8000"
     environment:
-      - PORT=5000
-      - FLASK_DEBUG=0
+      - PORT=8000
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./backend/uploads:/app/backend/uploads
+      - ./backend/static:/app/backend/static
+    restart: unless-stopped
+
+  # Optional Java Spring Boot Orchestration Microservice
+  backend-java:
+    build:
+      context: ./backend-java
+      dockerfile: Dockerfile
+    container_name: coastal-erosion-java-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - PYTHON_ANALYTICS_URL=http://backend-python:8000
+    depends_on:
+      - backend-python
     restart: unless-stopped

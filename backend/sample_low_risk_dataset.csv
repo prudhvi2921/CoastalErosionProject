@@ -1,0 +1,15 @@
+Year,Segment,Latitude,Longitude,ShorelinePosition_m,DataSource
+2012,Malpe Coastline North,13.3516,74.6987,85.00,NCCR
+2013,Malpe Coastline North,13.3516,74.6987,84.90,NCCR
+2014,Malpe Coastline North,13.3516,74.6987,84.75,USGS Landsat-8
+2015,Malpe Coastline North,13.3516,74.6987,84.60,USGS Landsat-8
+2016,Malpe Coastline North,13.3516,74.6987,84.45,Sentinel-2
+2017,Malpe Coastline North,13.3516,74.6987,84.30,Sentinel-2
+2018,Malpe Coastline North,13.3516,74.6987,84.20,Sentinel-2
+2019,Malpe Coastline North,13.3516,74.6987,84.05,NCCR Survey
+2020,Malpe Coastline North,13.3516,74.6987,83.90,Sentinel-2
+2021,Malpe Coastline North,13.3516,74.6987,83.80,Sentinel-2
+2022,Malpe Coastline North,13.3516,74.6987,83.65,NCCR Survey
+2023,Malpe Coastline North,13.3516,74.6987,83.50,Sentinel-2
+2024,Malpe Coastline North,13.3516,74.6987,83.40,Field RTK-GPS
+2025,Malpe Coastline North,13.3516,74.6987,83.25,Field RTK-GPS

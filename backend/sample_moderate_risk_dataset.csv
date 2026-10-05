@@ -1,0 +1,15 @@
+Year,Segment,Latitude,Longitude,ShorelinePosition_m,DataSource
+2012,Marina Beach Sector B,13.0475,80.2824,150.00,NCCR
+2013,Marina Beach Sector B,13.0475,80.2824,148.80,NCCR
+2014,Marina Beach Sector B,13.0475,80.2824,147.50,USGS Landsat-8
+2015,Marina Beach Sector B,13.0475,80.2824,146.30,USGS Landsat-8
+2016,Marina Beach Sector B,13.0475,80.2824,145.00,Sentinel-2
+2017,Marina Beach Sector B,13.0475,80.2824,143.70,Sentinel-2
+2018,Marina Beach Sector B,13.0475,80.2824,142.50,Sentinel-2
+2019,Marina Beach Sector B,13.0475,80.2824,141.20,NCCR Survey
+2020,Marina Beach Sector B,13.0475,80.2824,139.90,Sentinel-2
+2021,Marina Beach Sector B,13.0475,80.2824,138.60,Sentinel-2
+2022,Marina Beach Sector B,13.0475,80.2824,137.40,NCCR Survey
+2023,Marina Beach Sector B,13.0475,80.2824,136.10,Sentinel-2
+2024,Marina Beach Sector B,13.0475,80.2824,134.80,Field RTK-GPS
+2025,Marina Beach Sector B,13.0475,80.2824,133.50,Field RTK-GPS

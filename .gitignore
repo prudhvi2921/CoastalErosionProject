@@ -9,8 +9,10 @@ venv/
 ENV/
 backend/uploads/*.csv
 backend/static/charts/*.png
-!backend/static/charts/.gitkeep
-!backend/uploads/.gitkeep
+backend/static/reports/*.pdf
+*.db
+frontend/node_modules/
+frontend/dist/
 outputs/
 .DS_Store
 .idea/
