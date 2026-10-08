@@ -13,7 +13,7 @@ Provides persistent storage for:
 import json
 import os
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coastal_intelligence.db")
@@ -109,7 +109,7 @@ def init_db():
     if cursor.fetchone()[0] == 0:
         cursor.execute(
             "INSERT INTO threshold_config (id, low_max, moderate_max, high_max, updated_at) VALUES (1, 1.0, 2.0, 3.0, ?)",
-            (datetime.utcnow().isoformat(),)
+            (datetime.now(timezone.utc).isoformat(),)
         )
 
     conn.commit()
@@ -138,7 +138,7 @@ def get_threshold_config() -> Dict[str, float]:
 def update_threshold_config(low_max: float, moderate_max: float, high_max: float) -> Dict[str, float]:
     conn = get_connection()
     cursor = conn.cursor()
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(timezone.utc).isoformat()
     cursor.execute(
         "UPDATE threshold_config SET low_max = ?, moderate_max = ?, high_max = ?, updated_at = ? WHERE id = 1",
         (low_max, moderate_max, high_max, now)
@@ -165,7 +165,7 @@ def save_dataset(
 ) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(timezone.utc).isoformat()
     cursor.execute("""
     INSERT OR REPLACE INTO datasets (
         id, name, filename, upload_time, row_count, valid_row_count, rejected_row_count,
@@ -316,7 +316,7 @@ def save_prediction_run(run_data: Dict[str, Any]) -> Dict[str, Any]:
         json.dumps(run_data.get("risk_recommendations", [])),
         json.dumps(run_data.get("history_data", [])),
         json.dumps(run_data.get("future_data", [])),
-        run_data.get("created_at", datetime.utcnow().isoformat()),
+        run_data.get("created_at", datetime.now(timezone.utc).isoformat()),
         run_data.get("trend_chart_url", ""),
         run_data.get("rate_chart_url", "")
     ))
@@ -383,7 +383,7 @@ def save_report(
 ) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
-    now = datetime.utcnow().isoformat()
+    now = datetime.now(timezone.utc).isoformat()
     cursor.execute("""
     INSERT OR REPLACE INTO reports (
         id, run_id, dataset_id, segment_name, title, summary_notes, pdf_path, created_at

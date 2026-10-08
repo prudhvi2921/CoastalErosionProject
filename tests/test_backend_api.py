@@ -1,11 +1,11 @@
 """
 Comprehensive Automated Test Suite for Coastal Erosion System
 Tests:
-1. Module 1: CSV upload, column discovery, dynamic cleaning, validation error detection
-2. Module 2: Linear regression trend fitting, equation calculation, multi-year projection
-3. Module 3: Configurable risk thresholds (Low, Moderate, High, Very High) & action plans
-4. Module 4: PDF and CSV report generation and dynamic chart generation
-5. Module 5: API contracts, SQLite persistence, dashboard summary KPIs, segment coordinates
+1. Data Ingestion: CSV upload, column discovery, dynamic cleaning, validation error detection
+2. Trend Modeling: Linear regression trend fitting, equation calculation, multi-year projection
+3. Risk Assessment: Configurable risk thresholds (Low, Moderate, High, Very High) & action plans
+4. Publications & Export: PDF and CSV report generation and dynamic chart generation
+5. Platform Orchestration: API contracts, SQLite persistence, dashboard summary KPIs, segment coordinates
 """
 
 import os

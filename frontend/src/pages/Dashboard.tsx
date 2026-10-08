@@ -42,17 +42,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
   const distribution = summary?.riskDistribution || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Hero Header Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0c1c33] via-[#091729] to-[#060e1a] border border-cyan-950/80 p-6 sm:p-8 shadow-2xl">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0c1c33] via-[#091729] to-[#060e1a] border border-cyan-950/80 p-5 sm:p-7 lg:p-8 shadow-2xl">
         <div className="absolute top-0 right-0 -mt-8 -mr-8 h-64 w-64 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-5 sm:gap-6">
           <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-cyan-950/80 px-3 py-1 text-xs font-semibold text-cyan-300 border border-cyan-800/60 shadow-sm">
+            <div className="inline-flex items-center gap-2 rounded-full bg-cyan-950/90 px-2.5 py-1 text-[11px] sm:text-xs font-semibold text-cyan-300 border border-cyan-800/60 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
               <span>Active Shoreline Monitoring Cycle • 2012–2025</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
               Coastal Intelligence & Risk Platform
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
@@ -60,18 +60,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </p>
           </div>
 
-          {/* Quick Actions */}
-          <div className="flex flex-wrap items-center gap-3">
+          {/* Quick Actions (Full width on mobile, inline on tablet/laptop) */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             <button
               onClick={() => onNavigateTab('workspace')}
-              className="flex items-center gap-2 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 px-4 py-2.5 text-xs font-semibold border border-slate-700/80 shadow-md transition-all"
+              className="flex items-center justify-center gap-2 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 text-slate-200 px-4 py-2.5 text-xs font-semibold border border-slate-700/80 shadow-md transition-all"
             >
               <Database className="h-4 w-4 text-cyan-400" />
               <span>Import Survey CSV</span>
             </button>
             <button
               onClick={() => onNavigateTab('prediction', { segment: activeSegment?.name })}
-              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-5 py-2.5 text-xs font-semibold shadow-lg shadow-cyan-600/30 transition-all"
+              className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white px-5 py-2.5 text-xs font-semibold shadow-lg shadow-cyan-600/30 transition-all"
             >
               <Play className="h-4 w-4 fill-current" />
               <span>Launch Prediction Studio</span>
@@ -80,87 +80,87 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </div>
 
-      {/* KPI Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* KPI Row (1 col on mobile, 2 col on tablet, 4 col on laptop) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
         {/* KPI 1 */}
-        <div className="glass-card rounded-2xl p-5 border border-slate-800/80 relative overflow-hidden">
+        <div className="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800/80 relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400">Monitored Segments</span>
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-950/80 border border-cyan-800/50 text-cyan-400">
               <MapPin className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
+          <div className="mt-2.5 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{totalSegments}</span>
             <span className="text-xs font-medium text-slate-400">Active Transects</span>
           </div>
-          <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-1">
+          <div className="mt-1.5 text-[11px] text-slate-500 flex items-center gap-1">
             <span className="text-emerald-400">● 100% Survey Validated</span>
           </div>
         </div>
 
         {/* KPI 2 */}
-        <div className="glass-card rounded-2xl p-5 border border-slate-800/80 relative overflow-hidden">
+        <div className="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800/80 relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400">Critical Risk Zones</span>
             <div className={`flex h-8 w-8 items-center justify-center rounded-xl ${highRiskCount > 0 ? 'bg-orange-950/80 border border-orange-800/50 text-orange-400' : 'bg-slate-800 text-slate-400'}`}>
               <AlertOctagon className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
+          <div className="mt-2.5 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{highRiskCount}</span>
             <span className="text-xs font-medium text-orange-400">High / Very High</span>
           </div>
-          <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-1">
+          <div className="mt-1.5 text-[11px] text-slate-500 flex items-center gap-1">
             <span>Requires active nourishment / zoning</span>
           </div>
         </div>
 
         {/* KPI 3 */}
-        <div className="glass-card rounded-2xl p-5 border border-slate-800/80 relative overflow-hidden">
+        <div className="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800/80 relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400">Average Erosion Rate</span>
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-950/80 border border-amber-800/50 text-amber-400">
               <TrendingDown className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
+          <div className="mt-2.5 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{avgRate.toFixed(2)}</span>
             <span className="text-xs font-medium text-slate-400">m / year</span>
           </div>
-          <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-1">
+          <div className="mt-1.5 text-[11px] text-slate-500 flex items-center gap-1">
             <span className="text-amber-400">Max: {summary?.maxErosionRate?.toFixed(2) || '3.40'} m/yr</span>
           </div>
         </div>
 
         {/* KPI 4 */}
-        <div className="glass-card rounded-2xl p-5 border border-slate-800/80 relative overflow-hidden">
+        <div className="glass-card rounded-2xl p-4 sm:p-5 border border-slate-800/80 relative overflow-hidden">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-slate-400">Total Historical Surveys</span>
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-950/80 border border-blue-800/50 text-blue-400">
               <Calendar className="h-4 w-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline gap-2">
+          <div className="mt-2.5 flex items-baseline gap-2">
             <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">{summary?.totalSurveysCount || 112}</span>
             <span className="text-xs font-medium text-slate-400">Field Points</span>
           </div>
-          <div className="mt-2 text-[11px] text-slate-500 flex items-center gap-1">
-            <span>Cross-referenced Sentinel-2 & RTK</span>
+          <div className="mt-1.5 text-[11px] text-slate-500 flex items-center gap-1">
+            <span>Sentinel-2 & RTK GPS Data</span>
           </div>
         </div>
       </div>
 
       {/* Main Interactive Map & Segment Deep-Dive Area */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Interactive Map (7 cols) */}
-        <div className="lg:col-span-7 h-[460px] flex flex-col rounded-3xl bg-[#091524] border border-slate-800 p-4 shadow-xl">
-          <div className="flex items-center justify-between mb-3 px-1">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        {/* Interactive Map (7 cols on laptop) */}
+        <div className="lg:col-span-7 h-[340px] xs:h-[380px] sm:h-[440px] lg:h-[480px] flex flex-col rounded-2xl sm:rounded-3xl bg-[#091524] border border-slate-800 p-3 sm:p-4 shadow-xl">
+          <div className="flex items-center justify-between mb-2.5 px-1">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
               <h3 className="text-xs sm:text-sm font-semibold text-white">Geospatial Risk Map</h3>
             </div>
-            <span className="text-[11px] text-slate-400">Click marker to inspect reach</span>
+            <span className="text-[10px] sm:text-[11px] text-slate-400">Click marker to inspect reach</span>
           </div>
           <div className="flex-1 w-full relative">
             <LeafletMap
@@ -172,36 +172,36 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* Selected Segment Insight Panel (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col rounded-3xl bg-gradient-to-b from-[#0e1e36] to-[#0a1628] border border-slate-700/80 p-6 shadow-xl">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-4">
+        {/* Selected Segment Insight Panel (5 cols on laptop) */}
+        <div className="lg:col-span-5 flex flex-col justify-between rounded-2xl sm:rounded-3xl bg-gradient-to-b from-[#0e1e36] to-[#0a1628] border border-slate-700/80 p-4 sm:p-6 shadow-xl space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
             <div>
               <span className="text-[10px] font-semibold tracking-wider text-cyan-400 uppercase">Selected Coastal Reach</span>
-              <h3 className="text-lg font-bold text-white mt-0.5">{activeSegment?.name || 'Coastal Reach'}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mt-0.5">{activeSegment?.name || 'Coastal Reach'}</h3>
             </div>
             {activeSegment && <RiskBadge level={activeSegment.riskLevel} size="md" />}
           </div>
 
           {activeSegment ? (
-            <div className="flex-1 flex flex-col justify-between pt-4 space-y-4">
+            <div className="flex-1 flex flex-col justify-between space-y-3.5">
               {/* Coordinates and Survey Details */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-2.5">
                   <span className="text-[10px] text-slate-400 block">Coordinates:</span>
                   <span className="font-mono text-xs font-semibold text-slate-200">
                     {activeSegment.latitude.toFixed(4)}°N, {activeSegment.longitude.toFixed(4)}°E
                   </span>
                 </div>
-                <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-3">
+                <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-2.5">
                   <span className="text-[10px] text-slate-400 block">Survey Range:</span>
                   <span className="font-mono text-xs font-semibold text-slate-200">
-                    {activeSegment.baselineYear} – {activeSegment.latestYear} ({activeSegment.recordsCount} surveys)
+                    {activeSegment.baselineYear}–{activeSegment.latestYear} ({activeSegment.recordsCount} pts)
                   </span>
                 </div>
               </div>
 
               {/* Shoreline Metric Breakdown */}
-              <div className="space-y-2.5 rounded-2xl bg-slate-900/90 border border-slate-800/90 p-4">
+              <div className="space-y-2 rounded-2xl bg-slate-900/90 border border-slate-800/90 p-3.5 sm:p-4">
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-slate-400">Baseline Position ({activeSegment.baselineYear}):</span>
                   <span className="font-mono font-bold text-slate-200">{activeSegment.baselinePosition.toFixed(1)} m</span>
@@ -211,7 +211,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <span className="font-mono font-bold text-slate-200">{activeSegment.latestPosition.toFixed(1)} m</span>
                 </div>
                 <div className="flex items-center justify-between text-xs border-t border-slate-800 pt-2 text-cyan-300">
-                  <span className="font-medium">Total Observed Retreat:</span>
+                  <span className="font-medium">Observed Net Retreat:</span>
                   <span className="font-mono font-bold">
                     {(activeSegment.baselinePosition - activeSegment.latestPosition).toFixed(1)} m
                   </span>
@@ -240,7 +240,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </button>
             </div>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-xs text-slate-500">
+            <div className="flex-1 flex items-center justify-center text-xs text-slate-500 py-12">
               Select a marker on the map to view reach analytics
             </div>
           )}
@@ -248,10 +248,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Secondary Row: Risk Distribution & Quick Segment Directory */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Risk Distribution Chart (5 cols) */}
-        <div className="lg:col-span-5 rounded-3xl bg-[#0a1628] border border-slate-800 p-5 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-2">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        {/* Risk Distribution Chart (5 cols on laptop) */}
+        <div className="lg:col-span-5 rounded-2xl sm:rounded-3xl bg-[#0a1628] border border-slate-800 p-4 sm:p-5 shadow-xl flex flex-col justify-between space-y-3">
+          <div className="flex items-center justify-between">
             <h3 className="text-xs sm:text-sm font-semibold text-white">Risk Category Breakdown</h3>
             <button
               onClick={() => onNavigateTab('risk')}
@@ -262,11 +262,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </button>
           </div>
 
-          <div className="h-[200px] w-full">
+          <div className="h-[180px] sm:h-[200px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={distribution} layout="vertical" margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+              <BarChart data={distribution} layout="vertical" margin={{ top: 5, right: 15, left: -5, bottom: 5 }}>
                 <XAxis type="number" stroke="#64748b" tick={{ fill: '#94a3b8', fontSize: 10 }} />
-                <YAxis dataKey="name" type="category" stroke="#64748b" width={110} tick={{ fill: '#cbd5e1', fontSize: 10 }} />
+                <YAxis dataKey="name" type="category" stroke="#64748b" width={95} tick={{ fill: '#cbd5e1', fontSize: 9 }} />
                 <Tooltip
                   contentStyle={{ backgroundColor: '#091524', borderColor: '#334155', borderRadius: '8px', fontSize: '11px' }}
                 />
@@ -279,7 +279,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </ResponsiveContainer>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 pt-3 border-t border-slate-800/80 text-center text-[10px]">
+          {/* 2x2 on mobile, 4 in a row on sm+ */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-slate-800/80 text-center text-[10px]">
             {distribution.map((d: any) => (
               <div key={d.level} className="rounded-lg bg-slate-900/80 p-1.5">
                 <span className="text-slate-400 block">{d.level}</span>
@@ -289,11 +290,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* Monitored Coastal Reaches Table Directory (7 cols) */}
-        <div className="lg:col-span-7 rounded-3xl bg-[#0a1628] border border-slate-800 p-5 shadow-xl flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-3">
+        {/* Monitored Coastal Reaches Table Directory (7 cols on laptop) */}
+        <div className="lg:col-span-7 rounded-2xl sm:rounded-3xl bg-[#0a1628] border border-slate-800 p-4 sm:p-5 shadow-xl flex flex-col justify-between space-y-3">
+          <div className="flex items-center justify-between">
             <h3 className="text-xs sm:text-sm font-semibold text-white">Monitored Transects Directory</h3>
-            <span className="text-[11px] text-slate-400">{segments.length} verified reaches</span>
+            <span className="text-[11px] text-slate-400">{segments.length} reaches</span>
           </div>
 
           <div className="overflow-x-auto">
@@ -311,8 +312,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <tr key={seg.name} className="hover:bg-slate-800/30 transition-colors">
                     <td className="py-2.5 font-medium text-slate-200">
                       <div className="flex items-center gap-1.5">
-                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                        <span>{seg.name}</span>
+                        <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shrink-0" />
+                        <span className="truncate max-w-[130px] sm:max-w-none">{seg.name}</span>
                       </div>
                     </td>
                     <td className="py-2.5 font-mono text-slate-300">
@@ -336,10 +337,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
 
           <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-            <span className="text-[11px] text-slate-400">View detailed multi-year trajectory in studio</span>
+            <span className="text-[11px] text-slate-400 hidden sm:inline">Inspect multi-year trajectory</span>
             <button
               onClick={() => onNavigateTab('risk')}
-              className="text-cyan-400 hover:text-cyan-300 text-xs font-semibold flex items-center gap-1"
+              className="text-cyan-400 hover:text-cyan-300 text-xs font-semibold flex items-center gap-1 ml-auto sm:ml-0"
             >
               <span>Explore Complete Directory</span>
               <ChevronRight className="h-3.5 w-3.5" />

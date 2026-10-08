@@ -1,6 +1,6 @@
 """
-Module 3 - Risk Assessment
-----------------------------
+Risk Assessment Engine (Configurable & Decision-Focused)
+--------------------------------------------------------------
 Compares the predicted erosion rate against safety thresholds and assigns
 a Low / Moderate / High / Very High risk level to the coastal segment,
 along with actionable engineering and ecological mitigation strategies.

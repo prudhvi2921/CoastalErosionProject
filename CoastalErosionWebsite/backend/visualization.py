@@ -1,5 +1,5 @@
 """
-Module 4 - Visualization (Dynamic & Publication Quality)
+Visualization and Chart Engine (Dynamic & Publication Quality)
 --------------------------------------------------------
 Generates high-resolution Matplotlib charts for any selected Time and Target
 columns:

@@ -6,7 +6,7 @@ using ReportLab with embedded charts, executive metrics, and action plans.
 """
 
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
 from reportlab.lib.pagesizes import letter
@@ -98,7 +98,7 @@ def generate_pdf_report(
 
     # Header Banner
     elements.append(Paragraph("COASTAL EROSION PREDICTION & RISK ASSESSMENT REPORT", title_style))
-    created_at = run_data.get("created_at", datetime.utcnow().isoformat())
+    created_at = run_data.get("created_at", datetime.now(timezone.utc).isoformat())
     elements.append(
         Paragraph(
             f"<b>Platform:</b> Coastal Intelligence Decision Support System &nbsp;|&nbsp; "
@@ -186,7 +186,7 @@ def generate_pdf_report(
 
     elements.append(Spacer(1, 8))
 
-    # Module 2 Projection Table
+    # Forecast Projection Table
     elements.append(Paragraph("3. Multi-Year Forecast Trajectory", section_heading))
     future_rows = run_data.get("future_data", [])
     if isinstance(future_rows, str):

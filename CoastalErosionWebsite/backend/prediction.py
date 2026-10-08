@@ -1,5 +1,5 @@
 """
-Module 2 - Erosion Analysis and Dynamic Prediction
+Erosion Analysis and Dynamic Prediction Engine
 ---------------------------------------------------
 Fits a Linear Regression trend model on mapped Time -> Target columns,
 then projects future values across a multi-year forecast horizon.
@@ -108,7 +108,7 @@ def analyse_dynamic(
     time_col: str = "StandardTime",
     target_col: str = "StandardTarget"
 ) -> Tuple[TrendModel, pd.DataFrame]:
-    """Full dynamic Module 2 pipeline: fit trend + project forward."""
+    """Full dynamic prediction pipeline: fit trend + project forward."""
     t_col = time_col if time_col in df.columns else "Year"
     y_col = target_col if target_col in df.columns else "ShorelinePosition_m"
 

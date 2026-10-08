@@ -111,7 +111,7 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
         target_col: targetCol,
         location_col: locationCol,
       });
-      setSuccessMsg(`Module 1 Preprocessing completed: ${updated.valid_row_count} valid records cleaned.`);
+      setSuccessMsg(`Dataset Preprocessing completed: ${updated.valid_row_count} valid records cleaned.`);
       onSelectDataset(updated);
       setPreviewTab('cleaned');
     } catch (err: any) {
@@ -159,46 +159,46 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 sm:space-y-6">
       {/* Page Header Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-slate-800 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Module 1 Engine</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Data Processing Engine</span>
             <span className="rounded bg-cyan-950 px-2 py-0.5 text-[10px] font-mono text-cyan-300 border border-cyan-800/40">
               CSV Ingestion & Validation
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">Data Workspace</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mt-1">Data Workspace</h1>
           <p className="text-xs text-slate-400">
             Upload field surveys, auto-detect time & coordinate columns, inspect row-level errors, and generate preprocessed datasets.
           </p>
         </div>
 
         {/* Quick Sample Dataset Selector Buttons */}
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[11px] text-slate-400 font-medium">Quick Demo Datasets:</span>
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium w-full sm:w-auto">Quick Datasets:</span>
           <button
             onClick={() => handleLoadSample('default')}
-            className="rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 px-3 py-1.5 text-xs font-medium border border-slate-700 transition-colors"
+            className="rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 px-2.5 py-1.5 text-xs font-medium border border-slate-700 transition-colors"
           >
-            Multi-Segment (All)
+            Multi-Segment
           </button>
           <button
             onClick={() => handleLoadSample('high_risk')}
-            className="rounded-lg bg-red-950/50 hover:bg-red-900/50 text-red-300 px-3 py-1.5 text-xs font-medium border border-red-800/50 transition-colors"
+            className="rounded-lg bg-red-950/50 hover:bg-red-900/50 text-red-300 px-2.5 py-1.5 text-xs font-medium border border-red-800/50 transition-colors"
           >
             High Risk (Vizag)
           </button>
           <button
             onClick={() => handleLoadSample('moderate_risk')}
-            className="rounded-lg bg-amber-950/50 hover:bg-amber-900/50 text-amber-300 px-3 py-1.5 text-xs font-medium border border-amber-800/50 transition-colors"
+            className="rounded-lg bg-amber-950/50 hover:bg-amber-900/50 text-amber-300 px-2.5 py-1.5 text-xs font-medium border border-amber-800/50 transition-colors"
           >
             Moderate (Marina)
           </button>
           <button
             onClick={() => handleLoadSample('low_risk')}
-            className="rounded-lg bg-emerald-950/50 hover:bg-emerald-900/50 text-emerald-300 px-3 py-1.5 text-xs font-medium border border-emerald-800/50 transition-colors"
+            className="rounded-lg bg-emerald-950/50 hover:bg-emerald-900/50 text-emerald-300 px-2.5 py-1.5 text-xs font-medium border border-emerald-800/50 transition-colors"
           >
             Low Risk (Malpe)
           </button>
@@ -208,7 +208,7 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
       {/* Alerts */}
       {errorMsg && <ErrorAlert message={errorMsg} onDismiss={() => setErrorMsg(null)} />}
       {successMsg && (
-        <div className="flex items-center justify-between rounded-xl bg-emerald-950/60 border border-emerald-800/80 p-4 text-xs text-emerald-300 shadow-md">
+        <div className="flex items-center justify-between rounded-xl bg-emerald-950/60 border border-emerald-800/80 p-3.5 sm:p-4 text-xs text-emerald-300 shadow-md">
           <div className="flex items-center gap-2.5">
             <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
             <span>{successMsg}</span>
@@ -220,9 +220,9 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
       )}
 
       {/* Upload Zone & Column Mapping Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Upload Card (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col rounded-3xl bg-[#0a1628] border border-slate-800 p-6 shadow-xl space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        {/* Upload Card (5 cols on laptop) */}
+        <div className="lg:col-span-5 flex flex-col rounded-2xl sm:rounded-3xl bg-[#0a1628] border border-slate-800 p-4 sm:p-6 shadow-xl space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-950 text-cyan-400 border border-cyan-800">
@@ -233,19 +233,19 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
             <span className="text-[11px] text-slate-400">CSV format</span>
           </div>
 
-          {/* Drag & Drop Box */}
+          {/* Drag & Drop Box / Mobile Touch Upload Box */}
           <div
             onClick={() => fileInputRef.current?.click()}
-            className="cursor-pointer group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-700/80 hover:border-cyan-500 bg-slate-900/50 hover:bg-cyan-950/20 p-8 text-center transition-all"
+            className="cursor-pointer group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-700/80 hover:border-cyan-500 bg-slate-900/50 hover:bg-cyan-950/20 p-6 sm:p-8 text-center transition-all"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-800 group-hover:bg-cyan-900/60 text-cyan-400 shadow-inner transition-colors">
               <FileSpreadsheet className="h-6 w-6" />
             </div>
             <p className="mt-3 text-xs font-semibold text-slate-200">
-              Click to browse or drag and drop CSV
+              Tap or click to browse CSV file
             </p>
-            <p className="text-[11px] text-slate-400 mt-1">
-              Auto-detects Year, Coordinates, Shoreline Position, and Segments
+            <p className="text-[10px] sm:text-[11px] text-slate-400 mt-1">
+              Supports Year, Shoreline Position, Segment, Coordinates
             </p>
             <input
               ref={fileInputRef}
@@ -258,10 +258,10 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
 
           {/* Active Dataset Selection Info */}
           {currentDataset && (
-            <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 space-y-2.5">
+            <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-3.5 sm:p-4 space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-400">Active Dataset:</span>
-                <span className="font-semibold text-white truncate max-w-[200px]" title={currentDataset.name}>
+                <span className="font-semibold text-white truncate max-w-[170px] sm:max-w-[220px]" title={currentDataset.name}>
                   {currentDataset.name}
                 </span>
               </div>
@@ -275,7 +275,7 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-400">Discovered Segments:</span>
-                <span className="text-cyan-300 font-medium">
+                <span className="text-cyan-300 font-medium truncate max-w-[170px] sm:max-w-[220px]">
                   {currentDataset.segments?.length ? currentDataset.segments.join(', ') : 'All Coastal Area'}
                 </span>
               </div>
@@ -283,8 +283,8 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
           )}
         </div>
 
-        {/* Column Mapping & Module 1 Preprocessor (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col justify-between rounded-3xl bg-[#0a1628] border border-slate-800 p-6 shadow-xl space-y-5">
+        {/* Column Mapping & Ingestion Preprocessor (7 cols on laptop) */}
+        <div className="lg:col-span-7 flex flex-col justify-between rounded-2xl sm:rounded-3xl bg-[#0a1628] border border-slate-800 p-4 sm:p-6 shadow-xl space-y-4">
           <div>
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
@@ -293,7 +293,7 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white">Dynamic Column Mapping</h3>
-                  <p className="text-[11px] text-slate-400">Map survey attributes for linear regression modeling</p>
+                  <p className="text-[10px] sm:text-[11px] text-slate-400">Map survey attributes for linear regression modeling</p>
                 </div>
               </div>
               <span className="rounded-full bg-emerald-950 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-400 border border-emerald-800/40">
@@ -301,10 +301,10 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
               </span>
             </div>
 
-            {/* Mappings Form */}
+            {/* Mappings Form (1 col on mobile, 3 cols on sm+) */}
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Time Column */}
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className="text-[11px] font-semibold text-slate-300">
                   Time / Survey Year <span className="text-red-400">*</span>
                 </label>
@@ -319,13 +319,13 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
                     </option>
                   ))}
                 </select>
-                <span className="text-[10px] text-slate-500 block">X-Axis independent variable</span>
+                <span className="text-[10px] text-slate-500 block">X-Axis independent</span>
               </div>
 
               {/* Target Column */}
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className="text-[11px] font-semibold text-slate-300">
-                  Target Shoreline Pos (m) <span className="text-red-400">*</span>
+                  Shoreline Pos (m) <span className="text-red-400">*</span>
                 </label>
                 <select
                   value={targetCol}
@@ -338,11 +338,11 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
                     </option>
                   ))}
                 </select>
-                <span className="text-[10px] text-slate-500 block">Y-Axis dependent variable</span>
+                <span className="text-[10px] text-slate-500 block">Y-Axis dependent</span>
               </div>
 
               {/* Location Column */}
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className="text-[11px] font-semibold text-slate-300">
                   Location / Segment
                 </label>
@@ -358,26 +358,26 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
                     </option>
                   ))}
                 </select>
-                <span className="text-[10px] text-slate-500 block">Multi-reach grouping</span>
+                <span className="text-[10px] text-slate-500 block">Reach grouping</span>
               </div>
             </div>
           </div>
 
-          {/* Action Row */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 pt-4">
+          {/* Action Row (Responsive full width stack on mobile) */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 border-t border-slate-800 pt-4">
             <button
               onClick={handleRunPreprocessing}
               disabled={isPreprocessing || !currentDataset}
-              className="flex items-center gap-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white px-5 py-2.5 text-xs font-bold shadow-lg shadow-cyan-600/30 transition-all disabled:opacity-50"
+              className="flex items-center justify-center gap-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white px-5 py-2.5 text-xs font-bold shadow-lg shadow-cyan-600/30 transition-all disabled:opacity-50"
             >
               <RefreshCw className={`h-4 w-4 ${isPreprocessing ? 'animate-spin' : ''}`} />
-              <span>{isPreprocessing ? 'Preprocessing...' : 'Run Module 1 Preprocessing'}</span>
+              <span>{isPreprocessing ? 'Preprocessing...' : 'Run Data Preprocessing'}</span>
             </button>
 
             <button
               onClick={() => onNavigateTab('prediction', { datasetId: currentDataset?.id })}
               disabled={!currentDataset}
-              className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-5 py-2.5 text-xs font-bold shadow-lg shadow-emerald-600/25 transition-all disabled:opacity-50"
+              className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-5 py-2.5 text-xs font-bold shadow-lg shadow-emerald-600/25 transition-all disabled:opacity-50"
             >
               <span>Send to Prediction Studio</span>
               <ArrowRight className="h-4 w-4" />
@@ -387,59 +387,59 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
       </div>
 
       {/* Before / After Data Inspection Table & Validation Report */}
-      <div className="rounded-3xl bg-[#0a1628] border border-slate-800 p-6 shadow-xl space-y-4">
+      <div className="rounded-2xl sm:rounded-3xl bg-[#0a1628] border border-slate-800 p-4 sm:p-6 shadow-xl space-y-4">
         {/* Table Toolbar */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
           {/* Tabs */}
-          <div className="flex items-center gap-1.5 rounded-xl bg-slate-900 p-1 border border-slate-800">
+          <div className="flex items-center gap-1 rounded-xl bg-slate-900 p-1 border border-slate-800 overflow-x-auto scrollbar-none">
             <button
               onClick={() => setPreviewTab('cleaned')}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all ${
                 previewTab === 'cleaned'
                   ? 'bg-cyan-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              Preprocessed & Cleaned ({cleanedRows.length || rawRows.length})
+              Cleaned ({cleanedRows.length || rawRows.length})
             </button>
             <button
               onClick={() => setPreviewTab('raw')}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all ${
                 previewTab === 'raw'
                   ? 'bg-cyan-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              Raw Input Data ({rawRows.length})
+              Raw ({rawRows.length})
             </button>
             <button
               onClick={() => setPreviewTab('validation')}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+              className={`shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all ${
                 previewTab === 'validation'
                   ? 'bg-orange-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              Validation Issues ({validationErrors.length})
+              Issues ({validationErrors.length})
             </button>
           </div>
 
           {/* Search & Export Actions */}
           <div className="flex items-center gap-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-500" />
+            <div className="relative flex-1 sm:flex-initial">
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-500" />
               <input
                 type="text"
-                placeholder="Filter table rows..."
+                placeholder="Filter rows..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="rounded-xl bg-slate-900 border border-slate-800 pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:border-cyan-500 focus:outline-none w-44 sm:w-56"
+                className="w-full sm:w-48 rounded-xl bg-slate-900 border border-slate-800 pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
               />
             </div>
             <button
               onClick={handleDownloadCleanCsv}
               disabled={!currentDataset}
-              className="flex items-center gap-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 text-xs font-semibold border border-slate-700 transition-colors disabled:opacity-50"
+              className="flex items-center gap-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 text-xs font-semibold border border-slate-700 transition-colors disabled:opacity-50 shrink-0"
             >
               <Download className="h-3.5 w-3.5 text-cyan-400" />
               <span>Export CSV</span>
@@ -454,11 +454,11 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-900/90 text-slate-400 font-semibold uppercase text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">#</th>
+                    <th className="py-2.5 px-3 sm:px-4">#</th>
                     {Object.keys(displayedRows[0])
                       .filter((k) => !k.startsWith('_'))
                       .map((header) => (
-                        <th key={header} className="py-3 px-4">
+                        <th key={header} className="py-2.5 px-3 sm:px-4">
                           {header}
                         </th>
                       ))}
@@ -467,11 +467,11 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
                 <tbody className="divide-y divide-slate-800/60 bg-slate-950/40">
                   {displayedRows.slice(0, 50).map((row, idx) => (
                     <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
-                      <td className="py-2.5 px-4 font-mono text-slate-500">{idx + 1}</td>
+                      <td className="py-2 px-3 sm:px-4 font-mono text-slate-500">{idx + 1}</td>
                       {Object.entries(row)
                         .filter(([k]) => !k.startsWith('_'))
                         .map(([, val], cIdx) => (
-                          <td key={cIdx} className="py-2.5 px-4 text-slate-200 font-mono">
+                          <td key={cIdx} className="py-2 px-3 sm:px-4 text-slate-200 font-mono">
                             {typeof val === 'number' ? val.toFixed(2) : String(val ?? '')}
                           </td>
                         ))}
@@ -492,19 +492,19 @@ export const DataWorkspace: React.FC<DataWorkspaceProps> = ({
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-900/90 text-slate-400 font-semibold uppercase text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Row #</th>
-                    <th className="py-3 px-4">Column</th>
-                    <th className="py-3 px-4">Found Value</th>
-                    <th className="py-3 px-4">Validation Message & Recommendation</th>
+                    <th className="py-2.5 px-3 sm:px-4">Row</th>
+                    <th className="py-2.5 px-3 sm:px-4">Column</th>
+                    <th className="py-2.5 px-3 sm:px-4">Value</th>
+                    <th className="py-2.5 px-3 sm:px-4">Validation Message</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 bg-slate-950/40">
                   {validationErrors.map((err, idx) => (
                     <tr key={idx} className="hover:bg-slate-800/40 transition-colors">
-                      <td className="py-2.5 px-4 font-mono font-bold text-amber-400">{err.row}</td>
-                      <td className="py-2.5 px-4 font-semibold text-slate-200">{err.column}</td>
-                      <td className="py-2.5 px-4 font-mono text-red-400">{String(err.value)}</td>
-                      <td className="py-2.5 px-4 text-slate-300">{err.message}</td>
+                      <td className="py-2 px-3 sm:px-4 font-mono font-bold text-amber-400">{err.row}</td>
+                      <td className="py-2 px-3 sm:px-4 font-semibold text-slate-200">{err.column}</td>
+                      <td className="py-2 px-3 sm:px-4 font-mono text-red-400">{String(err.value)}</td>
+                      <td className="py-2 px-3 sm:px-4 text-slate-300">{err.message}</td>
                     </tr>
                   ))}
                 </tbody>

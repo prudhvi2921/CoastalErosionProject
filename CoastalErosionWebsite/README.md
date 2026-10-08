@@ -1,18 +1,15 @@
-# Coastal Erosion Prediction — Website Version
+# Coastal Erosion Prediction Platform
 
-This turns the desktop project into a real website: a Flask backend runs
-the exact same Modules 1-4 (Pandas cleaning, scikit-learn regression, risk
-classification, Matplotlib charts) behind an HTTP API, and a plain HTML/JS
-page in the browser calls it.
+A full-stack web platform: a Python backend runs the analytics pipeline (Pandas cleaning, Scikit-learn regression, configurable risk classification, Matplotlib publication charts) behind a REST API, and a frontend dashboard calls it.
 
 ```
 CoastalErosionWebsite/
 ├── backend/
 │   ├── app.py                Flask server + /api/analyze, /api/sample
-│   ├── data_processing.py    Module 1 (same as desktop version)
-│   ├── prediction.py         Module 2
-│   ├── risk_assessment.py    Module 3
-│   ├── visualization.py      Module 4
+│   ├── data_processing.py    Data Ingestion & Cleaning Engine
+│   ├── prediction.py         Shoreline Prediction Engine
+│   ├── risk_assessment.py    Risk Assessment Engine
+│   ├── visualization.py      Visualization & Chart Engine
 │   ├── coastal_data.csv      sample dataset, served via /api/sample
 │   ├── requirements.txt
 │   ├── uploads/               temp storage for uploaded CSVs (auto-cleaned)
@@ -41,7 +38,7 @@ and the frontend page.
 - The browser either uploads a CSV or clicks "use the sample dataset"
   (fetched from `/api/sample`).
 - It POSTs to `/api/analyze` with the CSV + segment name + horizon.
-- Flask runs your tested Python modules, writes a chart PNG to
+- Flask runs your tested Python algorithms, writes a chart PNG to
   `static/charts/`, and returns JSON: erosion rate, predicted position,
   R², risk level, and a URL to the chart image.
 - The page renders the numbers and `<img>`s the chart — no page reload.

@@ -1,11 +1,11 @@
 """
 Flask web backend for the Coastal Erosion & Dynamic Dataset Prediction System.
 
-Connects Modules 1-4:
-- data_processing.py (Module 1): Dynamic CSV inspection, cleaning, and validation
-- prediction.py (Module 2): Dynamic Scikit-learn Linear Regression trend modeling & forecasting
-- risk_assessment.py (Module 3): Multi-tier risk classification & actionable engineering mitigation
-- visualization.py (Module 4): High-resolution Matplotlib dynamic trend & rate charts
+Architecture Components:
+- data_processing.py: Dynamic CSV inspection, cleaning, and validation
+- prediction.py: Dynamic Scikit-learn Linear Regression trend modeling & forecasting
+- risk_assessment.py: Multi-tier risk classification & actionable engineering mitigation
+- visualization.py: High-resolution Matplotlib dynamic trend & rate charts
 
 Compatible with Local run, Gunicorn, Docker, and Vercel Serverless.
 """

@@ -3,7 +3,7 @@ package com.coastal.erosion.model;
 import java.util.List;
 
 /**
- * Domain entity representing the result of Module 3 Risk Assessment.
+ * Domain entity representing the result of Risk Assessment.
  */
 public class RiskAssessment {
     private String level;

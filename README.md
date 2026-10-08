@@ -30,7 +30,7 @@ The platform uses a clean, layered microservice architecture preserving existing
                       |                                       |
                       v                                       v
 +-----------------------------------+   +-------------------------------------------+
-|  MODULE 1: DATA INGESTION         |   |  MODULE 2: EROSION MODELING               |
+|  DATA INGESTION & VALIDATION      |   |  EROSION MODELING & FORECASTING           |
 |  - Dynamic Column Discovery       |   |  - Scikit-Learn Linear Regression         |
 |  - Row-Level Schema Validation    |   |  - Slope, Intercept, R² Fit               |
 |  - Delta & Rate Computation       |   |  - Multi-Year Horizon Projections         |
@@ -38,7 +38,7 @@ The platform uses a clean, layered microservice architecture preserving existing
                       |                                       |
                       v                                       v
 +-----------------------------------+   +-------------------------------------------+
-|  MODULE 3: RISK ASSESSMENT        |   |  MODULE 4: VISUALIZATION & REPORTS        |
+|  RISK ASSESSMENT ENGINE           |   |  VISUALIZATION & PUBLICATION REPORTS      |
 |  - Configurable Threshold Rules   |   |  - Matplotlib High-Res Publication Charts |
 |  - Low, Mod, High, Very High      |   |  - ReportLab Formal Engineering PDF       |
 |  - Mitigation Action Matrix       |   |  - Time-series Recharts & Leaflet Maps    |
@@ -47,15 +47,15 @@ The platform uses a clean, layered microservice architecture preserving existing
 
 ---
 
-## 📦 Modules Summary
+## 📦 System Architecture & Features Summary
 
-| Module | Purpose | Status | Key Features |
+| Component | Purpose | Status | Key Features |
 | :--- | :--- | :--- | :--- |
-| **Module 1: Data Processing** | Survey Ingestion & Cleaning | Complete | Dynamic column auto-detection (Time, Target, Location), row-level error validation, duplicate filtering, delta change derivation. |
-| **Module 2: Erosion Prediction** | Trend Modeling & Forecasting | Complete | Linear regression slope fit, R² score computation, forecast horizon projections (1–20 years). |
-| **Module 3: Risk Assessment** | Hazard Classification & Guidance | Complete | Configurable threshold engine (<1m/yr Low, 1-2m/yr Moderate, 2-3m/yr High, ≥3m/yr Very High) with actionable mitigation recommendations. |
-| **Module 4: Visualization & Export** | Visual Analytics & Publications | Complete | Leaflet interactive map, actual vs predicted shoreline charts, ReportLab PDF generation, CSV data export. |
-| **Module 5: OOP & User Interface** | Architecture & Premium Frontend | Complete | Java Spring Boot OOP services (`DatasetService`, `PredictionService`, `RiskService`, `ReportService`), DTO contracts, React SPA. |
+| **Data Ingestion Engine** | Survey Ingestion & Cleaning | Complete | Dynamic column auto-detection (Time, Target, Location), row-level error validation, duplicate filtering, delta change derivation. |
+| **Erosion Prediction Engine** | Trend Modeling & Forecasting | Complete | Linear regression slope fit, R² score computation, forecast horizon projections (1–20 years). |
+| **Risk Assessment Engine** | Hazard Classification & Guidance | Complete | Configurable threshold engine (<1m/yr Low, 1-2m/yr Moderate, 2-3m/yr High, ≥3m/yr Very High) with actionable mitigation recommendations. |
+| **Visualization & Export** | Visual Analytics & Publications | Complete | Leaflet interactive map, actual vs predicted shoreline charts, ReportLab PDF generation, CSV data export. |
+| **OOP & User Interface** | Architecture & Premium Frontend | Complete | Java Spring Boot OOP services (`DatasetService`, `PredictionService`, `RiskService`, `ReportService`), DTO contracts, React SPA. |
 
 ---
 

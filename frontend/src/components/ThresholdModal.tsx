@@ -76,7 +76,7 @@ export const ThresholdModal: React.FC<ThresholdModalProps> = ({
               <Sliders className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-white">Module 3 Risk Thresholds</h3>
+              <h3 className="text-base font-semibold text-white">Risk Evaluation Thresholds</h3>
               <p className="text-xs text-slate-400">Configure annual shoreline erosion rate criteria (m/year)</p>
             </div>
           </div>

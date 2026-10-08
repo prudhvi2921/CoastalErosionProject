@@ -2,11 +2,11 @@
 Coastal Erosion Prediction and Risk Assessment System - FastAPI Backend
 ========================================================================
 Implements REST API v1 for:
-- Module 1: Data Collection & Preprocessing
-- Module 2: Erosion Analysis & Dynamic Prediction
-- Module 3: Configurable Risk Assessment
-- Module 4: High-Resolution Visualization & PDF/CSV Export
-- Module 5: Orchestration, SQLite Persistence, DTOs, and REST API
+- Data Ingestion & Validation
+- Erosion Analysis & Dynamic Prediction
+- Configurable Risk Assessment
+- High-Resolution Visualization & PDF/CSV Export
+- Orchestration, SQLite Persistence, DTOs, and REST API
 """
 
 import io
@@ -15,7 +15,7 @@ import os
 import shutil
 import sys
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import numpy as np
@@ -316,7 +316,7 @@ def seed_sample_datasets():
                             "risk_recommendations": risk.recommendations,
                             "history_data": cleaned.to_dict(orient="records"),
                             "future_data": future.to_dict(orient="records"),
-                            "created_at": datetime.utcnow().isoformat(),
+                            "created_at": datetime.now(timezone.utc).isoformat(),
                             "trend_chart_url": f"/static/charts/{trend_chart_name}",
                             "rate_chart_url": f"/static/charts/{rate_chart_name}",
                         })
@@ -336,7 +336,7 @@ seed_sample_datasets()
 
 @app.get("/api/v1/health")
 def health_check():
-    return {"status": "ok", "timestamp": datetime.utcnow().isoformat(), "service": "Coastal Erosion Prediction Engine"}
+    return {"status": "ok", "timestamp": datetime.now(timezone.utc).isoformat(), "service": "Coastal Erosion Prediction Engine"}
 
 
 # --- Threshold Configuration ---
@@ -355,7 +355,7 @@ def update_thresholds(req: ThresholdConfigRequest):
     return sanitize(updated)
 
 
-# --- Datasets (Module 1) ---
+# --- Datasets Ingestion & Management ---
 
 @app.get("/api/v1/datasets")
 def list_all_datasets():
@@ -502,7 +502,7 @@ def preprocess_dataset_endpoint(dataset_id: str, req: PreprocessRequest):
             os.remove(temp_csv)
 
 
-# --- Predictions & Modeling (Module 2) ---
+# --- Predictions & Trend Modeling ---
 
 @app.post("/api/v1/predictions/run")
 def run_prediction_endpoint(req: PredictionRunRequest):
@@ -557,7 +557,7 @@ def run_prediction_endpoint(req: PredictionRunRequest):
         actual_segment = cleaned.attrs.get("segment_name", req.segment or "Observed Coastal Reach")
         available_segments = cleaned.attrs.get("available_segments", [actual_segment])
 
-        # Module 2: Linear Regression Model Fit & Projection
+        # Linear Regression Model Fit & Projection
         trend, future = analyse_dynamic(cleaned, horizon_years=req.horizon)
 
         first_time = float(cleaned["StandardTime"].min())
@@ -570,7 +570,7 @@ def run_prediction_endpoint(req: PredictionRunRequest):
         total_historical_change = round(final_hist_val - initial_val, 3)
         projected_retreat = round(abs(final_hist_val - predicted_val), 3)
 
-        # Module 3: Configurable Risk Assessment
+        # Configurable Risk Assessment
         annual_retreat_rate = trend.erosion_rate_m_per_yr if req.target_type != "erosion_rate" else abs(float(cleaned["StandardTarget"].mean()))
         risk = classify_risk(
             annual_erosion_rate_m_per_yr=annual_retreat_rate,
@@ -580,7 +580,7 @@ def run_prediction_endpoint(req: PredictionRunRequest):
             projected_retreat_m=projected_retreat,
         )
 
-        # Module 4: Visualization Chart Generation
+        # High-Resolution Visualization Chart Generation
         run_id = str(uuid.uuid4())[:8]
         trend_chart_filename = f"{run_id}_trend.png"
         rate_chart_filename = f"{run_id}_rate.png"
@@ -624,7 +624,7 @@ def run_prediction_endpoint(req: PredictionRunRequest):
             "risk_recommendations": risk.recommendations,
             "history_data": cleaned.to_dict(orient="records"),
             "future_data": future.to_dict(orient="records"),
-            "created_at": datetime.utcnow().isoformat(),
+            "created_at": datetime.now(timezone.utc).isoformat(),
             "trend_chart_url": f"/static/charts/{trend_chart_filename}",
             "rate_chart_url": f"/static/charts/{rate_chart_filename}",
         })
@@ -662,7 +662,7 @@ def run_prediction_endpoint(req: PredictionRunRequest):
             "future": future.to_dict(orient="records"),
             "trendChartUrl": f"/static/charts/{trend_chart_filename}",
             "erosionRateChartUrl": f"/static/charts/{rate_chart_filename}",
-            "createdAt": datetime.utcnow().isoformat()
+            "createdAt": datetime.now(timezone.utc).isoformat()
         }
         return sanitize(response)
     except Exception as exc:
@@ -686,7 +686,7 @@ def get_prediction_by_id(run_id: str):
     return sanitize(run)
 
 
-# --- Risk Assessment (Module 3) ---
+# --- Risk Assessment Engine ---
 
 @app.post("/api/v1/risk/assess")
 def assess_risk_endpoint(req: RiskAssessRequest):
@@ -751,8 +751,19 @@ def get_segments_endpoint():
                 "recordsCount": len(hist) if hist else 14,
             })
         else:
-            # Default segment approximation
-            rate = 2.45 if "Visakhapatnam" in name else (1.25 if "Marina" in name else 0.45)
+            # Segment-tailored environmental approximation
+            defaults_profile = {
+                "Visakhapatnam RK Beach": {"rate": 2.74, "base": 124.5, "latest": 89.2},
+                "Marina Beach Sector B": {"rate": 1.42, "base": 145.0, "latest": 126.5},
+                "Malpe Coastline North": {"rate": 0.68, "base": 110.2, "latest": 101.4},
+                "Puri Coastline East": {"rate": 1.85, "base": 138.0, "latest": 114.0},
+                "Digha Sea Beach": {"rate": 2.92, "base": 118.5, "latest": 80.5},
+                "Miami Beach": {"rate": 1.25, "base": 95.0, "latest": 78.8},
+                "South Beach": {"rate": 0.82, "base": 88.0, "latest": 77.3},
+                "Outer Banks": {"rate": 3.15, "base": 150.0, "latest": 109.0},
+            }
+            profile = defaults_profile.get(name, {"rate": 1.20, "base": 120.0, "latest": 104.4})
+            rate = profile["rate"]
             risk_info = classify_risk(rate, thresholds["low_max"], thresholds["moderate_max"], thresholds["high_max"])
             results.append({
                 "name": name,
@@ -760,8 +771,8 @@ def get_segments_endpoint():
                 "longitude": coords["lng"],
                 "baselineYear": 2012,
                 "latestYear": 2025,
-                "baselinePosition": 125.4,
-                "latestPosition": 89.8,
+                "baselinePosition": profile["base"],
+                "latestPosition": profile["latest"],
                 "erosionRate": rate,
                 "riskLevel": risk_info.level,
                 "riskColor": risk_info.color,
@@ -814,7 +825,7 @@ def get_dashboard_summary():
     })
 
 
-# --- Reports & Export (Module 4) ---
+# --- Reports & Export Center ---
 
 @app.get("/api/v1/reports")
 def list_reports_endpoint():

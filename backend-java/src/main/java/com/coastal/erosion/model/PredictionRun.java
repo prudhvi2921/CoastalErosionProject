@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Domain entity representing an execution of Module 2 Prediction & Trend Fitting.
+ * Domain entity representing an execution of Shoreline Prediction & Trend Fitting.
  */
 public class PredictionRun {
     private String id;

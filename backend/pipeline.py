@@ -1,6 +1,6 @@
 """
-Pipeline - wires Module 1 (data processing), Module 2 (prediction),
-Module 3 (risk assessment) and Module 4 (visualization) together.
+Pipeline - integrates data processing, prediction,
+risk assessment and visualization engines together.
 
 This is the single entry point for desktop/CLI runs and automated batch tasks.
 """
@@ -17,11 +17,11 @@ from visualization import plot_trend, plot_erosion_rate
 def run(csv_path: str, segment: str | None, horizon: int, out_dir: str) -> dict:
     os.makedirs(out_dir, exist_ok=True)
 
-    # Module 1
+    # Data Processing & Ingestion
     cleaned = process(csv_path, segment=segment)
     actual_segment = cleaned.attrs.get("segment_name", segment or "Default Segment")
 
-    # Module 2
+    # Prediction & Trend Fitting
     trend, future = analyse(cleaned, horizon)
     first_year = int(cleaned["Year"].min())
     last_year = int(cleaned["Year"].max())
@@ -31,10 +31,10 @@ def run(csv_path: str, segment: str | None, horizon: int, out_dir: str) -> dict:
     predicted_position = float(future.iloc[-1]["PredictedPosition_m"])
     total_historical_retreat = round(initial_pos - final_historical_pos, 3)
 
-    # Module 3
+    # Risk Assessment
     risk = classify_risk(trend.erosion_rate_m_per_yr)
 
-    # Module 4
+    # Visualization & Charts
     trend_chart = plot_trend(cleaned, future, actual_segment, os.path.join(out_dir, "trend_chart.png"))
     rate_chart = plot_erosion_rate(cleaned, actual_segment, os.path.join(out_dir, "erosion_rate_chart.png"))
 
@@ -73,7 +73,7 @@ def run(csv_path: str, segment: str | None, horizon: int, out_dir: str) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Coastal erosion prediction pipeline")
-    parser.add_argument("--csv", required=True, help="Path to input CSV (Module 1)")
+    parser.add_argument("--csv", required=True, help="Path to input CSV dataset")
     parser.add_argument("--segment", default=None, help="Coastal segment name to analyse")
     parser.add_argument("--horizon", type=int, default=5, help="Years ahead to predict")
     parser.add_argument("--out", default="outputs", help="Output directory for charts + results file")

@@ -87,7 +87,7 @@ export const api = {
     return res.json();
   },
 
-  // Predictions (Module 2 & 3)
+  // Predictions & Trend Forecasting
   async runPrediction(params: {
     dataset_id?: string;
     csv_data?: string;
@@ -122,7 +122,7 @@ export const api = {
     return res.json();
   },
 
-  // Risk Assessment (Module 3)
+  // Risk Assessment Engine
   async assessRisk(params: {
     erosion_rate: number;
     projected_retreat_m?: number;

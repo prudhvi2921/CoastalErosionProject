@@ -1,5 +1,5 @@
 """
-Module 1 - Data Collection and Data Processing (Dynamic & Backward-Compatible)
+Data Ingestion and Processing Engine (Dynamic & Backward-Compatible)
 -------------------------------------------------------------------------------
 Loads, inspects, validates, cleans, and derives change statistics for any
 coastal erosion or time-series survey dataset.
@@ -263,7 +263,7 @@ def process_dynamic(
     location_val: Optional[str] = None,
     min_records: int = 5
 ) -> pd.DataFrame:
-    """Full dynamic Module 1 pipeline: read -> clean -> compute changes."""
+    """Full dynamic data processing pipeline: read -> clean -> compute changes."""
     raw = read_csv_safely(csv_path)
     cleaned = clean_dynamic_data(
         raw,

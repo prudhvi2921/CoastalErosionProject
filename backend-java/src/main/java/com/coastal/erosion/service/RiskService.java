@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Module 3 - Risk Assessment Service
+ * Risk Assessment Service
  * Implements configurable multi-tier coastal erosion risk classification,
  * detailed environmental impact explanations, and engineering mitigation recommendations.
  */

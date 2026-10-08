@@ -1,5 +1,5 @@
 """
-Module 3 - Risk Assessment (Configurable & Decision-Focused)
+Risk Assessment Engine (Configurable & Decision-Focused)
 ------------------------------------------------------------
 Compares the predicted erosion rate and projected shoreline retreat against
 configurable safety thresholds to assign Low / Moderate / High / Very High

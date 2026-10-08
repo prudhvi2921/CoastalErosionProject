@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Service orchestrating Module 2 prediction runs and history tracking.
+ * Service orchestrating shoreline prediction runs and history tracking.
  */
 @Service
 public class PredictionService {
